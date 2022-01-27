@@ -7,7 +7,6 @@ import DataGrid from '../components/data/DataGrid';
 import { useData } from 'src/contexts/data';
 
 const columns = [
-  { field: '_id', headerName: 'ID', width: 90 },
   {
     field: 'name',
     headerName: 'Name',
@@ -28,6 +27,7 @@ const columns = [
     width: 110,
     editable: true
   },
+  { field: '_id', headerName: 'ID', width: 200 },
   // {
   //   field: 'fullName',
   //   headerName: 'Full name',

@@ -36,9 +36,9 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/users',
+    href: '/app/enums',
     icon: UsersIcon,
-    title: 'Users'
+    title: 'Enums'
   },
   {
     href: '/app/customers',
