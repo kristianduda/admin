@@ -4,7 +4,7 @@ import {
   Container,
   Grid,
   Pagination
-} from '@material-ui/core';
+} from '@mui/material';
 import ProductListToolbar from '../components/product/ProductListToolbar';
 import ProductCard from '../components/product/ProductCard';
 import products from '../__mocks__/products';

@@ -7,9 +7,9 @@ import {
   Divider,
   Grid,
   Typography
-} from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+} from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import GetAppIcon from '@mui/icons-material/GetApp';
 
 const ProductCard = ({ product, ...rest }) => (
   <Card
