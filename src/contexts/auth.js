@@ -11,8 +11,10 @@ export function AuthProvider({ children }) {
     try {
       const u = await authUtils.auth(username, password);
       setUser(u);
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   };
 

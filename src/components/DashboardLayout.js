@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+import { useAuth } from 'src/contexts/auth';
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -40,6 +41,7 @@ const DashboardLayoutContent = styled('div')({
 
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+  const auth = useAuth();
 
   return (
     <DashboardLayoutRoot>
@@ -51,7 +53,7 @@ const DashboardLayout = () => {
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>
           <DashboardLayoutContent>
-            <Outlet />
+            { auth.user ? <Outlet /> : <Navigate to="/login" />}
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>

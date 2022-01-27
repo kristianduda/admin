@@ -13,9 +13,22 @@ import {
 } from '@mui/material';
 import FacebookIcon from '../icons/Facebook';
 import GoogleIcon from '../icons/Google';
+import { useAuth } from 'src/contexts/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
+
+  const onSubmit = async (data, { setSubmitting, setErrors }) => {
+    const isAuth = await auth.auth(data.email, data.password);
+    if(isAuth) {
+      navigate('/app/dashboard', { replace: true });
+    }
+    else {
+      setSubmitting(false);
+      setErrors({ password: 'Unauthorized.' })
+    }
+  }
 
   return (
     <>
@@ -34,16 +47,14 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: 'doby@krdeldatlov.sk',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
+            onSubmit={onSubmit}
           >
             {({
               errors,
@@ -70,7 +81,7 @@ const Login = () => {
                     Sign in on the internal platform
                   </Typography>
                 </Box>
-                <Grid
+                {/* <Grid
                   container
                   spacing={3}
                 >
@@ -105,8 +116,8 @@ const Login = () => {
                       Login with Google
                     </Button>
                   </Grid>
-                </Grid>
-                <Box
+                </Grid> */}
+                {/* <Box
                   sx={{
                     pb: 1,
                     pt: 3
@@ -119,7 +130,7 @@ const Login = () => {
                   >
                     or login with email address
                   </Typography>
-                </Box>
+                </Box> */}
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
