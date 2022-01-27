@@ -5,7 +5,8 @@
     "browser": true
   },
   "extends": [
-    "airbnb"
+    "eslint:recommended",
+    // "plugin:prettier/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -21,16 +22,10 @@
     }
   },
   "rules": {
-    "comma-dangle": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "max-len": "off",
-    "no-console": "off",
-    "no-plusplus": "off",
-    "react/forbid-prop-types": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-props-no-spreading": "off",
+    // "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
-    "react/require-default-props": "off",
-    "linebreak-style": "off"
+    "react/prop-types": 0,
+    "no-unused-vars": 0,
+    "react/no-unescaped-entities": 0
   }
 }
