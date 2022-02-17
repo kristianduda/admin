@@ -3,6 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+import Snackbar from './Snackbar';
 import { useAuth } from 'src/contexts/auth';
 
 const DashboardLayoutRoot = styled('div')(
@@ -57,6 +58,7 @@ const DashboardLayout = () => {
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>
+      <Snackbar />
     </DashboardLayoutRoot>
   );
 };

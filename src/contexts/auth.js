@@ -6,23 +6,38 @@ const AuthContext = React.createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(storage.getUser());
+  const [alert, setAlert] = useState({ isOpen: false });
 
   const auth = async (username, password) => {
     try {
       const u = await authUtils.auth(username, password);
-      setUser(u);
-      return true;
+      if(u) {
+        setUser(u);
+        return true;
+      }
+      return false;
     } catch (error) {
       console.error(error);
       return false;
     }
   };
 
+  const showAlert = (msg, severity = 'info') => {
+    setAlert({ msg, severity, isOpen: true });
+  }
+
+  const hideAlert = () => {
+    setAlert({ isOpen: false });
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        auth
+        auth,
+        alert,
+        showAlert,
+        hideAlert
       }}
     >
       {children}
