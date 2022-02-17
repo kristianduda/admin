@@ -1,7 +1,8 @@
 const Logo = (props) => (
   <img
     alt="Logo"
-    src="/static/logo.svg"
+    height={36}
+    src="/static/logo.png"
     {...props}
   />
 );
