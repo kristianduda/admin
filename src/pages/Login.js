@@ -20,7 +20,7 @@ const Login = () => {
   const auth = useAuth();
 
   const onSubmit = async (data, { setSubmitting, setErrors }) => {
-    console.log('test');
+    console.log('testovanie');
     const isAuth = await auth.auth(data.email, data.password);
     if (isAuth) {
       navigate('/app/dashboard', { replace: true });
