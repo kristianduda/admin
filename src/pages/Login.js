@@ -20,15 +20,15 @@ const Login = () => {
   const auth = useAuth();
 
   const onSubmit = async (data, { setSubmitting, setErrors }) => {
+    console.log('test');
     const isAuth = await auth.auth(data.email, data.password);
-    if(isAuth) {
+    if (isAuth) {
       navigate('/app/dashboard', { replace: true });
-    }
-    else {
+    } else {
       setSubmitting(false);
-      setErrors({ password: 'Unauthorized.' })
+      setErrors({ password: 'Unauthorized.' });
     }
-  }
+  };
 
   return (
     <>
@@ -51,7 +51,10 @@ const Login = () => {
               password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              email: Yup.string()
+                .email('Must be a valid email')
+                .max(255)
+                .required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={onSubmit}
@@ -67,10 +70,7 @@ const Login = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  <Typography color="textPrimary" variant="h2">
                     Sign in
                   </Typography>
                   <Typography
@@ -169,13 +169,14 @@ const Login = () => {
                     Sign in now
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Don&apos;t have an account?
-                  {' '}
-                  <Link component={RouterLink} to="/register" variant="h6" underline="hover">
+                <Typography color="textSecondary" variant="body1">
+                  Don&apos;t have an account?{' '}
+                  <Link
+                    component={RouterLink}
+                    to="/register"
+                    variant="h6"
+                    underline="hover"
+                  >
                     Sign up
                   </Link>
                 </Typography>
