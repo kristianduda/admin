@@ -63,5 +63,5 @@ export default [
   { label: 'za', value: 249 },
   { label: 'je', value: 254 },
   { label: 'gg', value: 256 },
-  { label: 'ic', value: 256 }
+  { label: 'ic', value: 258 }
 ];

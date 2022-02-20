@@ -16,8 +16,14 @@ import TelField from '../form/TelField';
 import countryCodes from './countryCodes';
 
 const AccountProfileDetails = (props) => {
-  const { user } = useAuth();
-  const onSubmit = async (data, { setSubmitting, resetForm }) => {};
+  const { user, updateUser } = useAuth();
+  
+  const onSubmit = async (data, { setSubmitting }) => 
+  {
+    data.avatar = null;
+    await updateUser(data);
+    setSubmitting(false);
+  };
 
   return (
     <Formik

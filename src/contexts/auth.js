@@ -22,6 +22,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const updateUser = async (data) => {
+    try {
+      const u = await authUtils.updateUser(data);
+      setUser(u);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
   const showAlert = (msg, severity = 'info') => {
     setAlert({ msg, severity, isOpen: true });
   }
@@ -37,7 +46,8 @@ export function AuthProvider({ children }) {
         auth,
         alert,
         showAlert,
-        hideAlert
+        hideAlert,
+        updateUser,
       }}
     >
       {children}
