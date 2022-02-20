@@ -1,9 +1,5 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@mui/material';
-// import CustomerListResults from '../components/customer/CustomerListResults';
-import DataToolbar from '../components/data/DataToolbar';
-// import customers from '../__mocks__/customers';
-import DataGrid from '../components/data/DataGrid';
+import DataWrapper from '../components/data/DataWrapper';
 import { useData } from 'src/contexts/data';
 
 const columns = [
@@ -38,47 +34,23 @@ const columns = [
     editable: true
   },
   { field: '_id', headerName: 'ID', width: 200 },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`
-  // }
 ];
 
 const CustomerList = () => {
   const { enums, getEnums } = useData();
+
 
   return (
     <>
       <Helmet>
         <title>Customers | Material Kit</title>
       </Helmet>
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          minHeight: '100%',
-          py: 3
-        }}
-      >
-        <Container maxWidth={false}>
-          <DataToolbar 
-            columns={columns}
-          />
-          <Box sx={{ pt: 3 }}>
-            {/* <CustomerListResults customers={customers} /> */}
-            <DataGrid 
-              onChange={getEnums}
-              columns={columns}
-              data={enums.data}
-              total={enums.total}
-            />
-          </Box>
-        </Container>
-      </Box>
+      <DataWrapper 
+        columns={columns}
+        data={enums.data}
+        total={enums.total}
+        onChange={getEnums}
+      />
     </>
   );
 };

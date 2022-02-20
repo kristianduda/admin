@@ -7,17 +7,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Form from './Form';
+import Form from '../form/Form';
 
-export default function ResponsiveDialog({ open, handleClose, columns }) {
+export default function ResponsiveDialog({ isOpen, onClose, columns, initialData }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={open}
-      onClose={handleClose}
+      open={isOpen}
+      onClose={onClose}
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title">
@@ -30,6 +30,7 @@ export default function ResponsiveDialog({ open, handleClose, columns }) {
         </DialogContentText> */}
         <Form 
           columns={columns}
+          initialData={initialData}
         />
       </DialogContent>
       {/* <DialogActions>

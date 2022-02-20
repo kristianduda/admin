@@ -19,7 +19,7 @@ import { useAuth } from 'src/contexts/auth';
 import DatePicker from '@mui/lab/DatePicker';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-const Form = ({ columns }) => {
+const Form = ({ columns, initialData }) => {
   const navigate = useNavigate();
   const { auth, showAlert } = useAuth();
 
@@ -41,10 +41,7 @@ const Form = ({ columns }) => {
 
   return (
     <Formik
-      initialValues={{
-        email: 'doby@krdeldatlov.sk',
-        password: '',
-      }}
+      initialValues={initialData}
       validationSchema={Yup.object().shape({
         email: Yup.string()
           .email('Must be a valid email')

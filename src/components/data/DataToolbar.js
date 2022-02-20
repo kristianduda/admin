@@ -9,19 +9,8 @@ import {
   SvgIcon
 } from '@mui/material';
 import { Search as SearchIcon } from 'react-feather';
-import FormDialog from '../form/FormDialog';
 
-const CustomerListToolbar = ({ columns }) => {
-  const [open, setOpen] = useState(true);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const CustomerListToolbar = ({ onAdd }) => {
   return (
     <Box>
       <Box sx={{ mt: 3 }}>
@@ -52,7 +41,7 @@ const CustomerListToolbar = ({ columns }) => {
               >
                 <Button>Import</Button>
                 <Button sx={{ mx: 1 }}>Export</Button>
-                <Button color="primary" variant="contained" onClick={handleOpen}>
+                <Button color="primary" variant="contained" onClick={onAdd}>
                   Add customer
                 </Button>
               </Box>
@@ -60,11 +49,6 @@ const CustomerListToolbar = ({ columns }) => {
           </CardContent>
         </Card>
       </Box>
-      <FormDialog
-        columns={columns}
-        open={open}
-        handleClose={handleClose}
-      />
     </Box>
   );
 };

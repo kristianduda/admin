@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { getFilter} from '../../utils/filters';
 
-export default function DataGridDemo({ onChange, columns, data, total }) {
+export default function DataGridDemo({ onChange, columns, data, total, onEdit }) {
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(5);
   const [loading, setLoading] = React.useState(false);
@@ -43,12 +43,22 @@ export default function DataGridDemo({ onChange, columns, data, total }) {
     };
   }, [page, pageSize, sortModel, filterModel]);
 
+  const c = [...columns,
+    {
+      field: 'actions',
+      type: 'actions',
+      getActions: (params) => [
+        <GridActionsCellItem label="Edit" showInMenu onClick={e => onEdit(params.row)} />,
+      ]
+    }
+  ]
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row._id}
         rows={data}
-        columns={columns}
+        columns={c}
         rowsPerPageOptions={[5, 10]}
         rowCount={total}
         pageSize={pageSize}
