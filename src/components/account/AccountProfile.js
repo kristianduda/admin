@@ -9,6 +9,7 @@ import {
   Divider,
   Typography
 } from '@mui/material';
+import AvatarPicker from './AvatarPicker';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -29,12 +30,9 @@ const AccountProfile = (props) => (
           flexDirection: 'column'
         }}
       >
-        <Avatar
+        <AvatarPicker
+          disabled
           src={user.avatar}
-          sx={{
-            height: 100,
-            width: 100
-          }}
         />
         <Typography
           color="textPrimary"
@@ -58,7 +56,7 @@ const AccountProfile = (props) => (
       </Box>
     </CardContent>
     <Divider />
-    <CardActions>
+    {/* <CardActions>
       <Button
         color="primary"
         fullWidth
@@ -66,7 +64,7 @@ const AccountProfile = (props) => (
       >
         Upload picture
       </Button>
-    </CardActions>
+    </CardActions> */}
   </Card>
 );
 
