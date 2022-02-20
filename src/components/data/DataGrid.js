@@ -3,7 +3,7 @@ import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { getFilter } from '../../utils/filters';
 
 export default function DataGridDemo({
-  onChange,
+  onGet,
   columns,
   data,
   total,
@@ -26,12 +26,6 @@ export default function DataGridDemo({
 
     (async () => {
       setLoading(true);
-      //   const newRows = await loadServerRows(
-      //     rowsState.page,
-      //     rowsState.pageSize,
-      //     data.rows,
-      //   );
-      //   console.log(filterModel);
       const p = { limit: pageSize, skip: page * pageSize };
       const filter = filterModel.items.map((x) =>
         getFilter(x.columnField, x.operatorValue, x.value)
@@ -40,7 +34,7 @@ export default function DataGridDemo({
         sortModel && sortModel.length > 0
           ? { field: sortModel[0].field, dir: sortModel[0].sort }
           : undefined;
-      await onChange(filter, sort, p);
+      await onGet(filter, sort, p);
 
       if (!active) {
         return;

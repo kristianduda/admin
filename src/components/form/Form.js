@@ -19,36 +19,11 @@ import { useAuth } from 'src/contexts/auth';
 import DatePicker from '@mui/lab/DatePicker';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-const Form = ({ columns, initialData }) => {
-  const navigate = useNavigate();
-  const { auth, showAlert } = useAuth();
-
-  const onSubmit = async (data, { setSubmitting, resetForm }) => {
-    // const isAuth = await auth(data.email, data.password);
-    // if (isAuth) {
-    //   navigate('/app/dashboard', { replace: true });
-    // } else {
-    //   setSubmitting(false);
-    //   resetForm({
-    //     values: {
-    //       email: data.email,
-    //       password: ''
-    //     }
-    //   });
-    //   showAlert('unauthorized', 'error');
-    // }
-  };
-
+const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
   return (
     <Formik
       initialValues={initialData}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email('Must be a valid email')
-          .max(255)
-          .required('Email is required'),
-        password: Yup.string().max(255).required('Password is required')
-      })}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({
@@ -67,6 +42,7 @@ const Form = ({ columns, initialData }) => {
               case 'number':
                 return (
                   <TextField
+                    key={x.field}
                     error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}
@@ -84,6 +60,7 @@ const Form = ({ columns, initialData }) => {
               case 'date':
                 return (
                   <DatePicker
+                    key={x.field}
                     label={x.headerName}
                     value={values[x.field]}
                     onChange={(newValue) => {
@@ -102,6 +79,7 @@ const Form = ({ columns, initialData }) => {
               case 'dateTime':
                 return (
                   <DateTimePicker
+                    key={x.field}
                     label={x.headerName}
                     value={values[x.field]}
                     onChange={(newValue) => {
@@ -121,6 +99,7 @@ const Form = ({ columns, initialData }) => {
               case 'singleSelect':
                 return (
                   <TextField
+                    key={x.field}
                     error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}
@@ -144,10 +123,13 @@ const Form = ({ columns, initialData }) => {
               case 'boolean':
                 return (
                   <FormControlLabel
+                    key={x.field}
                     control={
                       <Switch
                         checked={values[x.field]}
-                        onChange={e => setFieldValue(x.field, e.target.checked)}
+                        onChange={(e) =>
+                          setFieldValue(x.field, e.target.checked)
+                        }
                       />
                     }
                     label={x.headerName}
@@ -157,6 +139,7 @@ const Form = ({ columns, initialData }) => {
               default:
                 return (
                   <TextField
+                    key={x.field}
                     error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}

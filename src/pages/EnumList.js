@@ -44,8 +44,7 @@ const columns = [
 ];
 
 const CustomerList = () => {
-  const { enums, getEnums } = useData();
-  console.log(enums)
+  const { enums, getEnums, addEnum, editEnum, deleteEnum } = useData();
 
   return (
     <>
@@ -56,7 +55,10 @@ const CustomerList = () => {
         columns={columns}
         data={enums.data}
         total={enums.total}
-        onChange={getEnums}
+        onGet={getEnums}
+        onAdd={addEnum}
+        onEdit={editEnum}
+        onDelete={deleteEnum}
       />
     </>
   );

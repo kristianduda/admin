@@ -3,23 +3,43 @@ import { Box, Container } from '@mui/material';
 import DataToolbar from './DataToolbar';
 import DataGrid from './DataGrid';
 import DataDetail from './DataDetail';
+import Form from '../form/Form';
 
-const CustomerList = ({ columns, data, total, onChange }) => {
+const DataWrapper = ({
+  columns,
+  data,
+  total,
+  onGet,
+  onAdd,
+  onEdit,
+  validationSchema
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [detailData, setDetailData] = useState({});
+  const [rowData, setRowData] = useState({});
 
-  const onAdd = () => {
+  const onAddClick = () => {
     setIsOpen(true);
-    setDetailData({});
+    setRowData({});
   };
 
   const onClose = () => {
     setIsOpen(false);
   };
 
-  const onEdit = (row) => {
+  const onEditClick = (row) => {
     setIsOpen(true);
-    setDetailData(row);
+    setRowData(row);
+  };
+
+  const onSubmit = async (d, { setSubmitting }) => {
+    if (d._id) {
+      await onEdit(d);
+    } else {
+      await onAdd(d);
+    }
+    await onGet();
+    setSubmitting(false);
+    setIsOpen(false);
   };
 
   return (
@@ -31,26 +51,28 @@ const CustomerList = ({ columns, data, total, onChange }) => {
       }}
     >
       <Container maxWidth={false}>
-        <DataToolbar onAdd={onAdd} />
+        <DataToolbar onAdd={onAddClick} />
         <Box sx={{ pt: 3 }}>
           {/* <CustomerListResults customers={customers} /> */}
           <DataGrid
-            onChange={onChange}
+            onGet={onGet}
             columns={columns}
             data={data}
             total={total}
-            onEdit={onEdit}
+            onEdit={onEditClick}
           />
         </Box>
       </Container>
-      <DataDetail
-        columns={columns}
-        isOpen={isOpen}
-        onClose={onClose}
-        initialData={detailData}
-      />
+      <DataDetail isOpen={isOpen} onClose={onClose}>
+        <Form
+          columns={columns}
+          initialData={rowData}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        />
+      </DataDetail>
     </Box>
   );
 };
 
-export default CustomerList;
+export default DataWrapper;

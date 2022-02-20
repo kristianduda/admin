@@ -10,7 +10,7 @@ export function DataProvider({ children }) {
   });
 
   async function getEnums(filters, sort, page) {
-    const data = await dataUtils.getEnums(filters, sort, page);
+    const data = await dataUtils.getEnums(filters || enums.filters, sort || enums.sort, page || enums.page);
     setEnums(data);
   }
 
@@ -18,7 +18,10 @@ export function DataProvider({ children }) {
     <DataContext.Provider
       value={{
         enums,
-        getEnums
+        getEnums,
+        addEnum: dataUtils.addEnum,
+        editEnum: dataUtils.editEnum,
+        deleteEnum: dataUtils.deleteEnum
       }}
     >
       {children}

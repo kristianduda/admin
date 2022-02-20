@@ -7,9 +7,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Form from '../form/Form';
 
-export default function ResponsiveDialog({ isOpen, onClose, columns, initialData }) {
+export default function ResponsiveDialog({ isOpen, onClose,children }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -28,10 +27,7 @@ export default function ResponsiveDialog({ isOpen, onClose, columns, initialData
           Let Google help apps determine location. This means sending anonymous
           location data to Google, even when no apps are running.
         </DialogContentText> */}
-        <Form 
-          columns={columns}
-          initialData={initialData}
-        />
+        {children}
       </DialogContent>
       {/* <DialogActions>
         <Button autoFocus onClick={handleClose}>
