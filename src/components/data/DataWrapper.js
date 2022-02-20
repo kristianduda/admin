@@ -3,7 +3,8 @@ import { Box, Container } from '@mui/material';
 import DataToolbar from './DataToolbar';
 import DataGrid from './DataGrid';
 import DataDetail from './DataDetail';
-import Form from '../form/Form';
+import Form from './Form';
+import ConfirmDialog from './ConfirmDialog';
 
 const DataWrapper = ({
   columns,
@@ -12,23 +13,40 @@ const DataWrapper = ({
   onGet,
   onAdd,
   onEdit,
+  onDelete,
   validationSchema
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [rowData, setRowData] = useState({});
 
   const onAddClick = () => {
-    setIsOpen(true);
+    setIsOpenEdit(true);
     setRowData({});
   };
 
-  const onClose = () => {
-    setIsOpen(false);
+  const onCloseEdit = () => {
+    setIsOpenEdit(false);
   };
 
   const onEditClick = (row) => {
-    setIsOpen(true);
+    setIsOpenEdit(true);
     setRowData(row);
+  };
+
+  const onDeleteClick = (row) => {
+    setIsOpenDelete(true);
+    setRowData(row);
+  };
+
+  const onCloseDelete = () => {
+    setIsOpenDelete(false);
+  };
+
+  const onConfirmDelete = async () => {
+    await onDelete(rowData._id);
+    await onGet();
+    setIsOpenDelete(false);
   };
 
   const onSubmit = async (d, { setSubmitting }) => {
@@ -39,7 +57,7 @@ const DataWrapper = ({
     }
     await onGet();
     setSubmitting(false);
-    setIsOpen(false);
+    setIsOpenEdit(false);
   };
 
   return (
@@ -53,17 +71,17 @@ const DataWrapper = ({
       <Container maxWidth={false}>
         <DataToolbar onAdd={onAddClick} />
         <Box sx={{ pt: 3 }}>
-          {/* <CustomerListResults customers={customers} /> */}
           <DataGrid
             onGet={onGet}
             columns={columns}
             data={data}
             total={total}
             onEdit={onEditClick}
+            onDelete={onDeleteClick}
           />
         </Box>
       </Container>
-      <DataDetail isOpen={isOpen} onClose={onClose}>
+      <DataDetail isOpen={isOpenEdit} onClose={onCloseEdit}>
         <Form
           columns={columns}
           initialData={rowData}
@@ -71,6 +89,11 @@ const DataWrapper = ({
           validationSchema={validationSchema}
         />
       </DataDetail>
+      <ConfirmDialog 
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
+        onConfirm={onConfirmDelete}
+      />
     </Box>
   );
 };

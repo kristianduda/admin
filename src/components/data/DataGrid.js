@@ -7,7 +7,8 @@ export default function DataGridDemo({
   columns,
   data,
   total,
-  onEdit
+  onEdit,
+  onDelete
 }) {
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(5);
@@ -67,7 +68,12 @@ export default function DataGridDemo({
           label="Edit"
           showInMenu
           onClick={(e) => onEdit(params.row)}
-        />
+        />,
+        <GridActionsCellItem
+        label="Delete"
+        showInMenu
+        onClick={(e) => onDelete(params.row)}
+      />
       ]
     }
   );
