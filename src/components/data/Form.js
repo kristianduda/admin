@@ -47,7 +47,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
-                    margin="normal"
                     name={x.field}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -70,7 +69,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                       <TextField
                         {...params}
                         fullWidth
-                        margin="normal"
                         variant="outlined"
                       />
                     )}
@@ -90,7 +88,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                       <TextField
                         {...params}
                         fullWidth
-                        margin="normal"
                         variant="outlined"
                       />
                     )}
@@ -104,7 +101,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
-                    margin="normal"
                     name={x.field}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -144,7 +140,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     fullWidth
                     helperText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
-                    margin="normal"
                     name={x.field}
                     onBlur={handleBlur}
                     onChange={handleChange}
