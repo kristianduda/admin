@@ -14,19 +14,28 @@ import { Formik } from 'formik';
 import TelField from '../form/TelField';
 import countryCodes from './countryCodes';
 
-const AccountProfileDetails = ({ user, updateUser }) => {  
-  const onSubmit = async (data, { setSubmitting }) => 
-  {
+const AccountProfileDetails = ({ user, updateUser }) => {
+  const onSubmit = async (data, { setSubmitting, setFieldValue }) => {
     data.avatar = null;
     await updateUser(data);
     setSubmitting(false);
+    setFieldValue('password', '');
+    setFieldValue('passwordConfirmation', '');
   };
 
   return (
     <Formik
       initialValues={user}
       validationSchema={Yup.object().shape({
-        name: Yup.string().max(255).required('Name is required')
+        name: Yup.string().max(255).required('Name is required'),
+        password: Yup.string().matches(
+          /^(\S{6,})?$/,
+          'Password must have at least 6 characters'
+        ),
+        passwordConfirmation: Yup.string().oneOf(
+          [Yup.ref('password')],
+          'Passwords must match'
+        )
       })}
       onSubmit={onSubmit}
     >
@@ -142,6 +151,39 @@ const AccountProfileDetails = ({ user, updateUser }) => {
                     name="postCode"
                     onChange={handleChange}
                     value={values.postCode}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Divider />
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    error={Boolean(touched.password && errors.password)}
+                    fullWidth
+                    helperText={touched.password && errors.password}
+                    label="Password"
+                    name="password"
+                    type="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    error={Boolean(
+                      touched.passwordConfirmation &&
+                        errors.passwordConfirmation
+                    )}
+                    fullWidth
+                    helperText={
+                      touched.passwordConfirmation &&
+                      errors.passwordConfirmation
+                    }
+                    label="Repeated password"
+                    name="passwordConfirmation"
+                    type="password"
+                    onChange={handleChange}
+                    value={values.passwordConfirmation}
                     variant="outlined"
                   />
                 </Grid>
