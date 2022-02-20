@@ -10,8 +10,8 @@ export default function DataGridDemo({
   onEdit,
   onDelete
 }) {
-  const [page, setPage] = React.useState(0);
-  const [pageSize, setPageSize] = React.useState(5);
+  const [pageModel, setPageModel] = React.useState(0);
+  const [pageSizeModel, setPageSizeModel] = React.useState(5);
   const [loading, setLoading] = React.useState(false);
 
   const [sortModel, setSortModel] = React.useState([
@@ -22,61 +22,68 @@ export default function DataGridDemo({
     linkOperator: 'and'
   });
 
+  const onFilterModelChange = (f) => {
+    setFilterModel(f);
+    onChange(pageModel, pageSizeModel, f, sortModel);
+  };
+
+  const onSortModelChange = (s) => {
+    setSortModel(s);
+    onChange(pageModel, pageSizeModel, filterModel, s);
+  };
+
+  const onPageModelChange = (p) => {
+    setPageModel(p);
+    onChange(p, pageSizeModel, filterModel, sortModel);
+  };
+
+  const onPageSizeModelChange = (ps) => {
+    setPageSizeModel(ps);
+    onChange(pageModel, ps, filterModel, sortModel);
+  };
+
+  const onChange = async (p, ps, f, s) => {
+    setLoading(true);
+    const page = { limit: ps, skip: p * ps };
+    const filter = f.items.map((x) =>
+      getFilter(x.columnField, x.operatorValue, x.value)
+    );
+    const sort =
+      s && s.length > 0 ? { field: s[0].field, dir: s[0].sort } : undefined;
+    await onGet(filter, sort, page);
+    setLoading(false);
+  };
+
   React.useEffect(() => {
-    let active = true;
-
-    (async () => {
-      setLoading(true);
-      const p = { limit: pageSize, skip: page * pageSize };
-      const filter = filterModel.items.map((x) =>
-        getFilter(x.columnField, x.operatorValue, x.value)
-      );
-      const sort =
-        sortModel && sortModel.length > 0
-          ? { field: sortModel[0].field, dir: sortModel[0].sort }
-          : undefined;
-      await onGet(filter, sort, p);
-
-      if (!active) {
-        return;
-      }
-
-      setLoading(false);
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [page, pageSize, sortModel, filterModel]);
+    onChange(pageModel, pageSizeModel, filterModel, sortModel);
+  }, []);
 
   const columnsWithActions = columns.map((c) => {
-    if(c.type === 'singleSelect') {
+    if (c.type === 'singleSelect') {
       c.valueFormatter = (params) => {
-        const v = c.valueOptions.find(x => x.value === params.value);
+        const v = c.valueOptions.find((x) => x.value === params.value);
         return v ? v.label : '';
-      }
+      };
     }
 
     return c;
   });
-  columnsWithActions.push(
-    {
-      field: 'actions',
-      type: 'actions',
-      getActions: (params) => [
-        <GridActionsCellItem
-          label="Edit"
-          showInMenu
-          onClick={(e) => onEdit(params.row)}
-        />,
-        <GridActionsCellItem
+  columnsWithActions.push({
+    field: 'actions',
+    type: 'actions',
+    getActions: (params) => [
+      <GridActionsCellItem
+        label="Edit"
+        showInMenu
+        onClick={(e) => onEdit(params.row)}
+      />,
+      <GridActionsCellItem
         label="Delete"
         showInMenu
         onClick={(e) => onDelete(params.row)}
       />
-      ]
-    }
-  );
+    ]
+  });
 
   return (
     <div style={{ height: 400, width: '100%' }}>
@@ -86,18 +93,18 @@ export default function DataGridDemo({
         columns={columnsWithActions}
         rowsPerPageOptions={[5, 10]}
         rowCount={total}
-        pageSize={pageSize}
-        page={page}
+        pageSize={pageSizeModel}
+        page={pageModel}
         loading={loading}
         paginationMode="server"
-        onPageChange={setPage}
-        onPageSizeChange={setPageSize}
+        onPageChange={onPageModelChange}
+        onPageSizeChange={onPageSizeModelChange}
         sortingMode="server"
         sortModel={sortModel}
-        onSortModelChange={setSortModel}
+        onSortModelChange={onSortModelChange}
         filterMode="server"
         filterModel={filterModel}
-        onFilterModelChange={setFilterModel}
+        onFilterModelChange={onFilterModelChange}
       />
     </div>
   );

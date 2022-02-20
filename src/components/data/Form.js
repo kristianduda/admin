@@ -53,6 +53,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     type="number"
                     value={values[x.field]}
                     variant="outlined"
+                    margin="normal"
                   />
                 );
 
@@ -70,6 +71,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                         {...params}
                         fullWidth
                         variant="outlined"
+                        margin="normal"
                       />
                     )}
                   />
@@ -89,6 +91,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                         {...params}
                         fullWidth
                         variant="outlined"
+                        margin="normal"
                       />
                     )}
                   />
@@ -108,6 +111,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     value={values[x.field]}
                     variant="outlined"
                     select
+                    margin="normal"
                   >
                     {x.valueOptions.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -129,6 +133,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                       />
                     }
                     label={x.headerName}
+                    margin="normal"
                   />
                 );
               case 'string':
@@ -141,6 +146,7 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                     helperText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
                     name={x.field}
+                    margin="normal"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     // type="password"
