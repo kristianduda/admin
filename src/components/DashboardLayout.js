@@ -40,20 +40,22 @@ const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   const { user } = useAuth();
 
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <DashboardLayoutRoot>
       <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
-      {user && (
-        <DashboardSidebar
-          onMobileClose={() => setMobileNavOpen(false)}
-          openMobile={isMobileNavOpen}
-          user={user}
-        />
-      )}
+      <DashboardSidebar
+        onMobileClose={() => setMobileNavOpen(false)}
+        openMobile={isMobileNavOpen}
+        user={user}
+      />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>
           <DashboardLayoutContent>
-            {user ? <Outlet /> : <Navigate to="/login" />}
+            <Outlet />
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>
