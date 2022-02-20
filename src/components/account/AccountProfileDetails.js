@@ -11,13 +11,10 @@ import {
 } from '@mui/material';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { useAuth } from 'src/contexts/auth';
 import TelField from '../form/TelField';
 import countryCodes from './countryCodes';
 
-const AccountProfileDetails = (props) => {
-  const { user, updateUser } = useAuth();
-  
+const AccountProfileDetails = ({ user, updateUser }) => {  
   const onSubmit = async (data, { setSubmitting }) => 
   {
     data.avatar = null;

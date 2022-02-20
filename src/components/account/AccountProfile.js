@@ -11,52 +11,40 @@ import {
 } from '@mui/material';
 import AvatarPicker from './AvatarPicker';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
+const AccountProfile = ({ user, updateUser }) => {
+  const onChangeAvatar = async (avatar) => {
 
-const AccountProfile = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <AvatarPicker
-          disabled
-          src={user.avatar}
-        />
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h3"
+    const u = { ...user, avatar: avatar.split(",").pop() };
+    await updateUser(u)
+  }
+
+  return (
+    <Card>
+      <CardContent>
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-        >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-        >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    {/* <CardActions>
+          <AvatarPicker
+            src={user.avatar}
+            onChange={onChangeAvatar}
+          />
+          <Typography color="textPrimary" gutterBottom variant="h3">
+            {user.name}
+          </Typography>
+          <Typography color="textSecondary" variant="body1">
+            {user.email}
+          </Typography>
+          <Typography color="textSecondary" variant="body1">
+            {`${user.city} ${user.country}`}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      {/* <CardActions>
       <Button
         color="primary"
         fullWidth
@@ -65,7 +53,8 @@ const AccountProfile = (props) => (
         Upload picture
       </Button>
     </CardActions> */}
-  </Card>
-);
+    </Card>
+  );
+};
 
 export default AccountProfile;

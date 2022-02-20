@@ -42,7 +42,7 @@ const DashboardLayoutContent = styled('div')({
 
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
-  const auth = useAuth();
+  const { user } = useAuth();
 
   return (
     <DashboardLayoutRoot>
@@ -50,11 +50,12 @@ const DashboardLayout = () => {
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
+        user={user}
       />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>
           <DashboardLayoutContent>
-            { auth.user ? <Outlet /> : <Navigate to="/login" />}
+            { user ? <Outlet /> : <Navigate to="/login" />}
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>

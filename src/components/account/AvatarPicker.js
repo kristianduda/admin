@@ -17,6 +17,7 @@ function AvatarPicker({ src, disabled, onChange, canvas }) {
     reader.onloadend = async () => {
         console.log(reader.result)
         let data = await canvas.resize(reader.result, 320);
+        data = data.split(",").pop();
         onChange(data);
     };
     reader.readAsDataURL(event.target.files[0]);
@@ -26,7 +27,7 @@ function AvatarPicker({ src, disabled, onChange, canvas }) {
     <>
       <Avatar
         style={{ cursor: disabled ? 'default' : 'pointer' }}
-        src={src}
+        src={src ? `data:image/jpeg;base64,${src}` : null}
         sx={{
           height: 100,
           width: 100
