@@ -1,42 +1,23 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography
-} from '@mui/material';
-import { green } from '@mui/material/colors';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
+import { indigo } from '@mui/material/colors';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
 const TotalCustomers = (props) => (
   <Card {...props}>
     <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
+      <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
         <Grid item>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="h6"
-          >
-            TOTAL CUSTOMERS
+          <Typography color="textSecondary" gutterBottom variant="h6">
+            POČET ZÁKAZNÍKOV
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h3"
-          >
-            1,600
+          <Typography color="textPrimary" variant="h3">
+            99
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: green[600],
+              backgroundColor: indigo[600],
               height: 56,
               width: 56
             }}
@@ -45,30 +26,6 @@ const TotalCustomers = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
-        }}
-      >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
-        <Typography
-          variant="body2"
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
     </CardContent>
   </Card>
 );

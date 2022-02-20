@@ -10,30 +10,16 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoneyIcon from '@mui/icons-material/Money';
 import { red } from '@mui/material/colors';
 
-const Budget = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
+const Orders = (props) => (
+  <Card sx={{ height: '100%' }} {...props}>
     <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
+      <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
         <Grid item>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="h6"
-          >
-            BUDGET
+          <Typography color="textSecondary" gutterBottom variant="h6">
+            OBJEDNANÉ
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h3"
-          >
-            $24,000
+          <Typography color="textPrimary" variant="h3">
+            2,400€
           </Typography>
         </Grid>
         <Grid item>
@@ -65,15 +51,12 @@ const Budget = (props) => (
         >
           12%
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
+        <Typography color="textSecondary" variant="caption">
+          Oproti minulému mesiacu
         </Typography>
       </Box>
     </CardContent>
   </Card>
 );
 
-export default Budget;
+export default Orders;

@@ -95,16 +95,12 @@ const Sales = (props) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon />}
-            size="small"
-            variant="text"
-          >
-            Last 7 days
+        action={
+          <Button size="small" variant="text">
+            Posledných 7 dní
           </Button>
-        )}
-        title="Latest Sales"
+        }
+        title="Posledné predaje"
       />
       <Divider />
       <CardContent>
@@ -114,10 +110,7 @@ const Sales = (props) => {
             position: 'relative'
           }}
         >
-          <Bar
-            data={data}
-            options={options}
-          />
+          <Bar data={data} options={options} />
         </Box>
       </CardContent>
       <Divider />
@@ -128,14 +121,14 @@ const Sales = (props) => {
           p: 2
         }}
       >
-        <Button
+        {/* <Button
           color="primary"
           endIcon={<ArrowRightIcon />}
           size="small"
           variant="text"
         >
           Overview
-        </Button>
+        </Button> */}
       </Box>
     </Card>
   );
