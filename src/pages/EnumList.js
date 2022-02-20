@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@mui/material';
 // import CustomerListResults from '../components/customer/CustomerListResults';
-// import CustomerListToolbar from '../components/customer/CustomerListToolbar';
+import DataToolbar from '../components/data/DataToolbar';
 // import customers from '../__mocks__/customers';
 import DataGrid from '../components/data/DataGrid';
 import { useData } from 'src/contexts/data';
@@ -13,12 +13,22 @@ const columns = [
     width: 150,
     editable: true
   },
+  // {
+  //   field: 'key',
+  //   headerName: 'Key',
+  //   type: 'number',
+  //   width: 110,
+  //   editable: true
+  // },
   {
     field: 'key',
-    headerName: 'Key',
-    type: 'number',
-    width: 110,
-    editable: true
+    headerName: 'Select',
+    type: 'singleSelect',
+    valueOptions: [{ value: 10, label: 'A' }, { value: 20, label: 'B' }],
+    valueFormatter: (params) => {
+      const v = [{ value: 10, label: 'A' }, { value: 20, label: 'B' }].find(x => x.value === params.value);
+      return v ? v.label : '';
+    },
   },
   {
     field: 'disabled',
@@ -55,7 +65,9 @@ const CustomerList = () => {
         }}
       >
         <Container maxWidth={false}>
-          {/* <CustomerListToolbar /> */}
+          <DataToolbar 
+            columns={columns}
+          />
           <Box sx={{ pt: 3 }}>
             {/* <CustomerListResults customers={customers} /> */}
             <DataGrid 

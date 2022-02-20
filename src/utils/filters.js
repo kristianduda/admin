@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function strToNumber(str) {
   return Number(str);
 }
@@ -95,20 +97,21 @@ export function getFilter(field, operator, value) {
       } else if (value === 'true') {
         return {
           field,
-          op: 'ne',
+          op: 'eq',
           value: true
         };
       } else if (value === 'false') {
         return {
           field,
-          op: 'ne',
+          op: 'eq',
           value: false
         };
       } else {
+        const d = moment(value, moment.ISO_8601, true);
         return {
           field,
           op: 'eq',
-          value: new Date(value)
+          value: d.isValid() ? d.toDate() : value
         };
       }
     case 'not':
