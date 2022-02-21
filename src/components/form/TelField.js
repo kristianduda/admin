@@ -2,26 +2,25 @@ import PhoneInput from 'react-phone-input-2';
 import { FormControl, FormHelperText } from '@mui/material';
 import 'react-phone-input-2/lib/material.css';
 
-export default function TelInput({
+export default function TelField({
   value,
-  onChange,
+  setValue,
   fullWidth,
   country,
-  error,
-  helperText,
+  errorText,
   label
 }) {
   return (
-    <FormControl fullWidth={fullWidth} error={error}>
+    <FormControl fullWidth={fullWidth} error={Boolean(errorText)}>
       <PhoneInput
         inputStyle={fullWidth ? { width: '100%' } : null}
         country={country}
         value={value}
-        onChange={onChange}
+        onChange={e => setValue(name, e.target.value)}
         specialLabel={label}
         countryCodeEditable={false}
       />
-      <FormHelperText>{helperText}</FormHelperText>
+      <FormHelperText>{errorText}</FormHelperText>
     </FormControl>
   );
 }

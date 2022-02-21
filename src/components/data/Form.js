@@ -1,25 +1,22 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
   Box,
   Button,
-  Container,
-  Grid,
-  Link,
-  TextField,
-  MenuItem,
-  FormControlLabel,
-  Switch
 } from '@mui/material';
-// import FacebookIcon from '../icons/Facebook';
-// import GoogleIcon from '../icons/Google';
-import { useAuth } from 'src/contexts/auth';
-import DatePicker from '@mui/lab/DatePicker';
-import DateTimePicker from '@mui/lab/DateTimePicker';
+import DateField from '../form/DateField';
+import DateTimeField from '../form/DateTimeField';
+import SelectField from '../form/SelectField';
+import SwitchField from '../form/SwitchField';
+import NumField from '../form/NumField';
+import TextField from '../form/TextField';
 
-const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
+const Form = ({
+  columns,
+  initialData,
+  onSubmit,
+  validationSchema,
+  disabled
+}) => {
   return (
     <Formik
       initialValues={initialData}
@@ -29,7 +26,6 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
       {({
         errors,
         handleBlur,
-        handleChange,
         handleSubmit,
         setFieldValue,
         isSubmitting,
@@ -41,99 +37,78 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
             switch (x.type) {
               case 'number':
                 return (
-                  <TextField
+                  <NumField
                     key={x.field}
-                    error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
-                    helperText={touched[x.field] && errors[x.field]}
+                    errorText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
                     name={x.field}
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="number"
+                    setValue={setFieldValue}
                     value={values[x.field]}
                     variant="outlined"
                     margin="normal"
+                    disabled={disabled}
                   />
                 );
 
               case 'date':
                 return (
-                  <DatePicker
+                  <DateField
                     key={x.field}
+                    fullWidth
+                    errorText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
+                    name={x.field}
+                    onBlur={handleBlur}
+                    setValue={setFieldValue}
                     value={values[x.field]}
-                    onChange={(newValue) => {
-                      setFieldValue(x.field, newValue);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth
-                        variant="outlined"
-                        margin="normal"
-                      />
-                    )}
+                    variant="outlined"
+                    margin="normal"
+                    disabled={disabled}
                   />
                 );
               case 'dateTime':
                 return (
-                  <DateTimePicker
+                  <DateTimeField
                     key={x.field}
+                    fullWidth
+                    errorText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
+                    name={x.field}
+                    onBlur={handleBlur}
+                    setValue={setFieldValue}
                     value={values[x.field]}
-                    onChange={(newValue) => {
-                      setFieldValue(x.field, newValue);
-                    }}
-                    ampm={false}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth
-                        variant="outlined"
-                        margin="normal"
-                      />
-                    )}
+                    variant="outlined"
+                    margin="normal"
+                    disabled={disabled}
                   />
                 );
               case 'singleSelect':
                 return (
-                  <TextField
+                  <SelectField
                     key={x.field}
-                    error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
-                    helperText={touched[x.field] && errors[x.field]}
+                    errorText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
                     name={x.field}
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="number"
+                    setValue={setFieldValue}
                     value={values[x.field]}
                     variant="outlined"
-                    select
                     margin="normal"
-                  >
-                    {x.valueOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    disabled={disabled}
+                    data={x.valueOptions}
+                  />
                 );
               case 'boolean':
                 return (
-                  <FormControlLabel
+                  <SwitchField 
                     key={x.field}
-                    control={
-                      <Switch
-                        checked={values[x.field]}
-                        onChange={(e) =>
-                          setFieldValue(x.field, e.target.checked)
-                        }
-                      />
-                    }
+                    value={x.value}
+                    setValue={setFieldValue}
                     label={x.headerName}
-                    margin="normal"
+                    disabled={disabled}
                   />
                 );
               case 'string':
@@ -141,32 +116,32 @@ const Form = ({ columns, initialData, onSubmit, validationSchema }) => {
                 return (
                   <TextField
                     key={x.field}
-                    error={Boolean(touched[x.field] && errors[x.field])}
                     fullWidth
-                    helperText={touched[x.field] && errors[x.field]}
+                    errorText={touched[x.field] && errors[x.field]}
                     label={x.headerName}
                     name={x.field}
                     margin="normal"
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    // type="password"
+                    setValue={setFieldValue}
                     value={values[x.field]}
                     variant="outlined"
+                    disabled={disabled}
                   />
                 );
             }
           })}
-          <Box sx={{ py: 2, display: 'flex', justifyContent: 'end' }}>
-            <Button
-              color="primary"
-              disabled={isSubmitting}
-              size="large"
-              type="submit"
-              variant="contained"
-            >
-              Save
-            </Button>
-          </Box>
+          {!disabled && (
+            <Box sx={{ py: 2, display: 'flex', justifyContent: 'end' }}>
+              <Button
+                color="primary"
+                disabled={isSubmitting}
+                type="submit"
+                variant="contained"
+              >
+                Save
+              </Button>
+            </Box>
+          )}
         </form>
       )}
     </Formik>
