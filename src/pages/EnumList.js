@@ -1,72 +1,61 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@mui/material';
-// import CustomerListResults from '../components/customer/CustomerListResults';
-// import CustomerListToolbar from '../components/customer/CustomerListToolbar';
-// import customers from '../__mocks__/customers';
-import DataGrid from '../components/data/DataGrid';
+import DataWrapper from '../components/data/DataWrapper';
 import { useData } from 'src/contexts/data';
+
+const enumTypes = [
+  { value: 1, label: "blog" },
+  { value: 3, label: "partner" },
+  { value: 5, label: "country" },
+  { value: 200, label: "shop" },
+  { value: 201, label: "size" },
+  { value: 202, label: "sex" },
+  { value: 203, label: "size_socks" },
+]
 
 const columns = [
   {
     field: 'name',
-    headerName: 'Name',
-    width: 150,
-    editable: true
+    headerName: 'Name'
+  },
+  {
+    field: 'enumTypeId',
+    headerName: 'Type',
+    type: 'singleSelect',
+    valueOptions: enumTypes,
+    sortable: false
   },
   {
     field: 'key',
     headerName: 'Key',
     type: 'number',
     width: 110,
-    editable: true
   },
   {
     field: 'disabled',
     headerName: 'Disabled',
     type: 'boolean',
     width: 110,
-    editable: true
   },
   { field: '_id', headerName: 'ID', width: 200 },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`
-  // }
 ];
 
 const CustomerList = () => {
-  const { enums, getEnums } = useData();
+  const { enums, getEnums, addEnum, editEnum, deleteEnum } = useData();
 
   return (
     <>
       <Helmet>
-        <title>Customers | Material Kit</title>
+        <title>Enums | KD</title>
       </Helmet>
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          minHeight: '100%',
-          py: 3
-        }}
-      >
-        <Container maxWidth={false}>
-          {/* <CustomerListToolbar /> */}
-          <Box sx={{ pt: 3 }}>
-            {/* <CustomerListResults customers={customers} /> */}
-            <DataGrid 
-              onChange={getEnums}
-              columns={columns}
-              data={enums.data}
-              total={enums.total}
-            />
-          </Box>
-        </Container>
-      </Box>
+      <DataWrapper 
+        columns={columns}
+        data={enums.data}
+        total={enums.total}
+        onGet={getEnums}
+        onAdd={addEnum}
+        onEdit={editEnum}
+        onDelete={deleteEnum}
+      />
     </>
   );
 };

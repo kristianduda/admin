@@ -4,182 +4,153 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
   Divider,
   Grid,
-  TextField
 } from '@mui/material';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+import TelField from '../form/TelField';
+import TextField from '../form/TextField';
+import SelectField from '../form/SelectField';
+import countryCodes from './countryCodes';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
-
-const AccountProfileDetails = (props) => {
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  });
-
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+const AccountProfileDetails = ({ user, updateUser }) => {
+  const onSubmit = async (data, { setSubmitting }) => {
+    data.avatar = null;
+    await updateUser(data);
+    setSubmitting(false);
   };
 
   return (
-    <form
-      autoComplete="off"
-      noValidate
-      {...props}
+    <Formik
+      initialValues={user}
+      validationSchema={Yup.object().shape({
+        name: Yup.string().max(255).required('Name is required')
+      })}
+      onSubmit={onSubmit}
     >
-      <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
+      {({
+        errors,
+        handleBlur,
+        handleSubmit,
+        setFieldValue,
+        isSubmitting,
+        touched,
+        values
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <Card>
+            {/* <CardHeader
+              subheader="The information can be edited"
+              title="Profile"
+            />
+            <Divider /> */}
+            <CardContent>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="Name"
+                    name="name"
+                    value={values.name}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="Email Address"
+                    name="email"
+                    disabled
+                    onBlur={handleBlur}
+                    type="email"
+                    value={values.email}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TelField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="Phone"
+                    name="tel"
+                    value={values.tel}
+                    country={values.country}
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="Address"
+                    name="address"
+                    onBlur={handleBlur}
+                    value={values.address}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <SelectField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="Country"
+                    name="countryId"
+                    value={values.countryId}
+                    variant="outlined"
+                    data={countryCodes}
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="City"
+                    name="city"
+                    value={values.city}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
+                    label="PostCode"
+                    name="postCode"
+                    value={values.postCode}
+                    variant="outlined"
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                p: 2
+              }}
             >
-              <TextField
-                fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Email Address"
-                name="email"
-                onChange={handleChange}
-                required
-                value={values.email}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="number"
-                value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
+              <Button
+                color="primary"
+                variant="contained"
+                type="submit"
+                disabled={isSubmitting}
               >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </Box>
-      </Card>
-    </form>
+                Save details
+              </Button>
+            </Box>
+          </Card>
+        </form>
+      )}
+    </Formik>
   );
 };
 

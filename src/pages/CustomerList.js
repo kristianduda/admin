@@ -1,29 +1,37 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@mui/material';
-import CustomerListResults from '../components/customer/CustomerListResults';
-import CustomerListToolbar from '../components/customer/CustomerListToolbar';
-import customers from '../__mocks__/customers';
+import DataWrapper from '../components/data/DataWrapper';
+import { useAuth } from 'src/contexts/auth';
 
-const CustomerList = () => (
-  <>
-    <Helmet>
-      <title>Customers | Material Kit</title>
-    </Helmet>
-    <Box
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
-      }}
-    >
-      <Container maxWidth={false}>
-        <CustomerListToolbar />
-        <Box sx={{ pt: 3 }}>
-          <CustomerListResults customers={customers} />
-        </Box>
-      </Container>
-    </Box>
-  </>
-);
+const columns = [
+  {
+    field: 'name',
+    headerName: 'Name'
+  },
+  {
+    field: 'email',
+    headerName: 'Email',
+    width: 200
+  },
+  { field: '_id', headerName: 'ID', width: 200 },
+];
+
+const CustomerList = () => {
+  const { users, getUsers } = useAuth();
+
+  return (
+    <>
+      <Helmet>
+        <title>Customers | KD</title>
+      </Helmet>
+      <DataWrapper 
+        columns={columns}
+        data={users.data}
+        total={users.total}
+        onGet={getUsers}
+        disabled
+      />
+    </>
+  );
+};
 
 export default CustomerList;

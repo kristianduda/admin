@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import MainNavbar from './MainNavbar';
+import Snackbar from './Snackbar';
 
 const MainLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -41,6 +42,7 @@ const MainLayout = () => (
         </MainLayoutContent>
       </MainLayoutContainer>
     </MainLayoutWrapper>
+    <Snackbar />
   </MainLayoutRoot>
 );
 

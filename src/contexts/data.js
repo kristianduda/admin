@@ -18,7 +18,10 @@ export function DataProvider({ children }) {
     <DataContext.Provider
       value={{
         enums,
-        getEnums
+        getEnums,
+        addEnum: dataUtils.addEnum,
+        editEnum: dataUtils.editEnum,
+        deleteEnum: dataUtils.deleteEnum
       }}
     >
       {children}

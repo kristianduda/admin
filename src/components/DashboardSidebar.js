@@ -19,15 +19,10 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  File as FolderIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
 
 const items = [
   {
@@ -36,14 +31,14 @@ const items = [
     title: 'Prehľad'
   },
   {
-    href: '/app/enums',
-    icon: UsersIcon,
-    title: 'Enums'
-  },
-  {
     href: '/app/customers',
     icon: UsersIcon,
     title: 'Zákazníci'
+  },
+  {
+    href: '/app/enums',
+    icon: FolderIcon,
+    title: 'Enums'
   },
   {
     href: '/app/products',
@@ -77,7 +72,7 @@ const items = [
   // }
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+const DashboardSidebar = ({ onMobileClose, openMobile, user }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -104,7 +99,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={user.avatar ? `data:image/jpeg;base64,${user.avatar}` : null}
           sx={{
             cursor: 'pointer',
             width: 64,

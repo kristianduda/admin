@@ -17,23 +17,27 @@ import { useAuth } from 'src/contexts/auth';
 
 const Login = () => {
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { auth, showAlert } = useAuth();
 
-  const onSubmit = async (data, { setSubmitting, setErrors }) => {
-    console.log('testovanie');
-    const isAuth = await auth.auth(data.email, data.password);
+  const onSubmit = async (data, { resetForm }) => {
+    const isAuth = await auth(data.email, data.password);
     if (isAuth) {
       navigate('/app/dashboard', { replace: true });
     } else {
-      setSubmitting(false);
-      setErrors({ password: 'Unauthorized.' });
+      resetForm({
+        values: {
+          email: data.email,
+          password: ''
+        }
+      });
+      showAlert('unauthorized', 'error');
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>Login | Material Kit</title>
+        <title>Login | KD</title>
       </Helmet>
       <Box
         sx={{
