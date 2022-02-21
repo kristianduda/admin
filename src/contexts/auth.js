@@ -1,17 +1,26 @@
-import React, { useState, useContext } from "react";
-import * as authUtils from "../utils/authUtils";
-import { storage } from "kd-web";
+import React, { useState, useContext } from 'react';
+import * as authUtils from '../utils/authUtils';
+import { storage } from 'kd-web';
 
 const AuthContext = React.createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(storage.getUser());
   const [alert, setAlert] = useState({ isOpen: false });
+  const [users, setUsers] = useState({
+    data: [],
+    total: 0
+  });
+
+  async function getUsers(filters, sort, page) {
+    const data = await authUtils.getUsers(filters, sort, page);
+    setUsers(data);
+  }
 
   const auth = async (username, password) => {
     try {
       const u = await authUtils.auth(username, password);
-      if(u) {
+      if (u) {
         setUser(u);
         return true;
       }
@@ -27,17 +36,17 @@ export function AuthProvider({ children }) {
       const u = await authUtils.updateUser(data);
       setUser(u);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
   const showAlert = (msg, severity = 'info') => {
     setAlert({ msg, severity, isOpen: true });
-  }
+  };
 
   const hideAlert = () => {
     setAlert({ isOpen: false });
-  }
+  };
 
   return (
     <AuthContext.Provider
@@ -48,6 +57,8 @@ export function AuthProvider({ children }) {
         showAlert,
         hideAlert,
         updateUser,
+        users,
+        getUsers
       }}
     >
       {children}

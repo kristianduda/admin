@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { getFilter } from '../../utils/filters';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function DataGridDemo({
   onGet,
@@ -8,7 +10,8 @@ export default function DataGridDemo({
   data,
   total,
   onEdit,
-  onDelete
+  onDelete,
+  disabled
 }) {
   const [pageModel, setPageModel] = React.useState(0);
   const [pageSizeModel, setPageSizeModel] = React.useState(5);
@@ -74,12 +77,13 @@ export default function DataGridDemo({
     getActions: (params) => [
       <GridActionsCellItem
         label="Edit"
-        showInMenu
+        icon={<EditIcon />}
         onClick={(e) => onEdit(params.row)}
       />,
       <GridActionsCellItem
         label="Delete"
-        showInMenu
+        icon={<DeleteIcon />}
+        disabled={disabled}
         onClick={(e) => onDelete(params.row)}
       />
     ]

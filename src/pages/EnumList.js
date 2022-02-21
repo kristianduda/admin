@@ -15,9 +15,7 @@ const enumTypes = [
 const columns = [
   {
     field: 'name',
-    headerName: 'Name',
-    width: 150,
-    editable: true
+    headerName: 'Name'
   },
   {
     field: 'enumTypeId',
@@ -31,14 +29,12 @@ const columns = [
     headerName: 'Key',
     type: 'number',
     width: 110,
-    editable: true
   },
   {
     field: 'disabled',
     headerName: 'Disabled',
     type: 'boolean',
     width: 110,
-    editable: true
   },
   { field: '_id', headerName: 'ID', width: 200 },
 ];
