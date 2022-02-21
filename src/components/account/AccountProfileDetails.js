@@ -15,27 +15,17 @@ import SelectField from '../form/SelectField';
 import countryCodes from './countryCodes';
 
 const AccountProfileDetails = ({ user, updateUser }) => {
-  const onSubmit = async (data, { setSubmitting, setFieldValue }) => {
+  const onSubmit = async (data, { setSubmitting }) => {
     data.avatar = null;
     await updateUser(data);
     setSubmitting(false);
-    setFieldValue('password', '');
-    setFieldValue('passwordConfirmation', '');
   };
 
   return (
     <Formik
       initialValues={user}
       validationSchema={Yup.object().shape({
-        name: Yup.string().max(255).required('Name is required'),
-        password: Yup.string().matches(
-          /^(\S{6,})?$/,
-          'Password must have at least 6 characters'
-        ),
-        passwordConfirmation: Yup.string().oneOf(
-          [Yup.ref('password')],
-          'Passwords must match'
-        )
+        name: Yup.string().max(255).required('Name is required')
       })}
       onSubmit={onSubmit}
     >
@@ -139,33 +129,8 @@ const AccountProfileDetails = ({ user, updateUser }) => {
                     variant="outlined"
                   />
                 </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    errorText={touched.name && errors.name}
-                    setValue={setFieldValue}
-                    label="Password"
-                    name="password"
-                    type="password"
-                    value={values.password}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    errorText={touched.name && errors.name}
-                    setValue={setFieldValue}
-                    label="Repeated password"
-                    name="passwordConfirmation"
-                    type="password"
-                    value={values.passwordConfirmation}
-                    variant="outlined"
-                  />
-                </Grid>
               </Grid>
             </CardContent>
-            {/* <Divider /> */}
             <Box
               sx={{
                 display: 'flex',

@@ -11,6 +11,7 @@ export default function NumField({
   margin,
   disabled,
   onBlur,
+  type
 }) {
   return (
     <TextFieldComponent
@@ -25,6 +26,7 @@ export default function NumField({
       variant={variant}
       margin={margin}
       disabled={disabled}
+      type={type}
     />
   );
 }

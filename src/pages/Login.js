@@ -19,14 +19,18 @@ const Login = () => {
   const navigate = useNavigate();
   const { auth, showAlert } = useAuth();
 
-  const onSubmit = async (data, { setSubmitting, setFieldValue }) => {
+  const onSubmit = async (data, { resetForm }) => {
     const isAuth = await auth(data.email, data.password);
     if(isAuth) {
       navigate('/app/dashboard', { replace: true });
     }
     else {
-      setSubmitting(false);
-      setFieldValue('password', '');
+      resetForm({
+        values: {
+          email: data.email,
+          password: ''
+        }
+      })
       showAlert('unauthorized', 'error');
     }
   }
