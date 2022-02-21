@@ -4,14 +4,14 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
   Divider,
   Grid,
-  TextField
 } from '@mui/material';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import TelField from '../form/TelField';
+import TextField from '../form/TextField';
+import SelectField from '../form/SelectField';
 import countryCodes from './countryCodes';
 
 const AccountProfileDetails = ({ user, updateUser }) => {
@@ -42,7 +42,6 @@ const AccountProfileDetails = ({ user, updateUser }) => {
       {({
         errors,
         handleBlur,
-        handleChange,
         handleSubmit,
         setFieldValue,
         isSubmitting,
@@ -60,26 +59,24 @@ const AccountProfileDetails = ({ user, updateUser }) => {
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <TextField
-                    error={Boolean(touched.name && errors.name)}
                     fullWidth
-                    helperText={touched.name && errors.name}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Name"
                     name="name"
-                    onChange={handleChange}
                     value={values.name}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(touched.email && errors.email)}
                     fullWidth
-                    helperText={touched.email && errors.email}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Email Address"
                     name="email"
                     disabled
                     onBlur={handleBlur}
-                    onChange={handleChange}
                     type="email"
                     value={values.email}
                     variant="outlined"
@@ -87,102 +84,81 @@ const AccountProfileDetails = ({ user, updateUser }) => {
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TelField
-                    error={Boolean(touched.tel && errors.tel)}
                     fullWidth
-                    helperText={touched.tel && errors.tel}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Phone"
                     name="tel"
-                    onChange={(value) => setFieldValue('tel', value)}
                     value={values.tel}
                     country={values.country}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(touched.address && errors.address)}
                     fullWidth
-                    helperText={touched.address && errors.address}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Address"
                     name="address"
                     onBlur={handleBlur}
-                    onChange={handleChange}
                     value={values.address}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <TextField
-                    error={Boolean(touched.tel && errors.tel)}
+                  <SelectField
                     fullWidth
-                    helperText={touched.tel && errors.tel}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Country"
                     name="countryId"
-                    onChange={handleChange}
-                    select
-                    SelectProps={{ native: true }}
                     value={values.countryId}
                     variant="outlined"
-                  >
-                    {countryCodes.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
+                    data={countryCodes}
+                  />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(touched.city && errors.city)}
                     fullWidth
-                    helperText={touched.city && errors.city}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="City"
                     name="city"
-                    onChange={handleChange}
                     value={values.city}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(touched.postCode && errors.postCode)}
                     fullWidth
-                    helperText={touched.postCode && errors.postCode}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="PostCode"
                     name="postCode"
-                    onChange={handleChange}
                     value={values.postCode}
                     variant="outlined"
                   />
                 </Grid>
-                <Divider />
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(touched.password && errors.password)}
                     fullWidth
-                    helperText={touched.password && errors.password}
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Password"
                     name="password"
                     type="password"
-                    onChange={handleChange}
                     value={values.password}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    error={Boolean(
-                      touched.passwordConfirmation &&
-                        errors.passwordConfirmation
-                    )}
                     fullWidth
-                    helperText={
-                      touched.passwordConfirmation &&
-                      errors.passwordConfirmation
-                    }
+                    errorText={touched.name && errors.name}
+                    setValue={setFieldValue}
                     label="Repeated password"
                     name="passwordConfirmation"
                     type="password"
-                    onChange={handleChange}
                     value={values.passwordConfirmation}
                     variant="outlined"
                   />

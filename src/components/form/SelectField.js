@@ -21,7 +21,7 @@ export default function SelectField({
       label={label}
       name={name}
       onBlur={onBlur}
-      setValue={e => setValue(name, e.target.value)}
+      onChange={e => setValue(name, e.target.value)}
       value={value}
       variant={variant}
       select

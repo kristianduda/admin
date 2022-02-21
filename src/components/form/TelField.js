@@ -3,6 +3,7 @@ import { FormControl, FormHelperText } from '@mui/material';
 import 'react-phone-input-2/lib/material.css';
 
 export default function TelField({
+  name,
   value,
   setValue,
   fullWidth,
@@ -16,7 +17,7 @@ export default function TelField({
         inputStyle={fullWidth ? { width: '100%' } : null}
         country={country}
         value={value}
-        onChange={e => setValue(name, e.target.value)}
+        onChange={v => setValue(name, v)}
         specialLabel={label}
         countryCodeEditable={false}
       />
