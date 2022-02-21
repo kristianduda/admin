@@ -21,7 +21,7 @@ const CustomerList = () => {
   return (
     <>
       <Helmet>
-        <title>Customers | Material Kit</title>
+        <title>Users | KD</title>
       </Helmet>
       <DataWrapper 
         columns={columns}

@@ -10,7 +10,7 @@ const Account = () => {
   return (
     <>
       <Helmet>
-        <title>Account | Material Kit</title>
+        <title>Account | KD</title>
       </Helmet>
       <Box
         sx={{
