@@ -19,7 +19,8 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  File as FolderIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -30,14 +31,14 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/enums',
-    icon: UsersIcon,
-    title: 'Enums'
-  },
-  {
     href: '/app/customers',
     icon: UsersIcon,
     title: 'Customers'
+  },
+  {
+    href: '/app/enums',
+    icon: FolderIcon,
+    title: 'Enums'
   },
   {
     href: '/app/products',

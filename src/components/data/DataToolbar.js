@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from 'react-feather';
 
-const CustomerListToolbar = ({ onAdd }) => {
+const CustomerListToolbar = ({ onAdd, disabled }) => {
   return (
     <Box>
       <Box sx={{ mt: 3 }}>
@@ -33,18 +33,17 @@ const CustomerListToolbar = ({ onAdd }) => {
                   variant="outlined"
                 />
               </Box>
-              <Box
-                sx={{
-                  display: 'flex'
-                  // justifyContent: 'flex-end'
-                }}
-              >
-                {/* <Button>Import</Button>
-                <Button sx={{ mx: 1 }}>Export</Button> */}
-                <Button color="primary" variant="contained" onClick={onAdd}>
-                  Add
-                </Button>
-              </Box>
+              {!disabled && (
+                <Box
+                  sx={{
+                    display: 'flex'
+                  }}
+                >
+                  <Button color="primary" variant="contained" onClick={onAdd}>
+                    Add
+                  </Button>
+                </Box>
+              )}
             </Box>
           </CardContent>
         </Card>

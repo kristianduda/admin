@@ -70,7 +70,7 @@ const DataWrapper = ({
       }}
     >
       <Container maxWidth={false}>
-        <DataToolbar onAdd={onAddClick} />
+        <DataToolbar onAdd={onAddClick} disabled={disabled} />
         <Box sx={{ pt: 3 }}>
           <DataGrid
             onGet={onGet}

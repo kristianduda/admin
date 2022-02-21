@@ -21,7 +21,7 @@ const CustomerList = () => {
   return (
     <>
       <Helmet>
-        <title>Users | KD</title>
+        <title>Customers | KD</title>
       </Helmet>
       <DataWrapper 
         columns={columns}
@@ -29,9 +29,6 @@ const CustomerList = () => {
         total={users.total}
         onGet={getUsers}
         disabled
-        // onAdd={addEnum}
-        // onEdit={editEnum}
-        // onDelete={deleteEnum}
       />
     </>
   );
