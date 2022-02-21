@@ -17,20 +17,17 @@ const ProductListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
+      {/* <Button>
         Import
       </Button>
       <Button sx={{ mx: 1 }}>
         Export
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-      >
-        Add product
+      </Button> */}
+      <Button color="primary" variant="contained">
+        Pridať produkt
       </Button>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    {/* <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
@@ -39,10 +36,7 @@ const ProductListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
+                    <SvgIcon fontSize="small" color="action">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
@@ -54,7 +48,7 @@ const ProductListToolbar = (props) => (
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Box> */}
   </Box>
 );
 
