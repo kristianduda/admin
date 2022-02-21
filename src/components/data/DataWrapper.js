@@ -6,6 +6,7 @@ import DataDetail from './DataDetail';
 import Form from './Form';
 import ConfirmDialog from './ConfirmDialog';
 
+let _filter, _sort, _page, _search;
 const DataWrapper = ({
   columns,
   data,
@@ -40,13 +41,25 @@ const DataWrapper = ({
     setRowData(row);
   };
 
+  const onChangeSearch = async (s) => {
+    _search = s;
+    await onGet(_filter, _sort, _page, s);
+  }
+
+  const onChangeGrid = async (f, s, p) => {
+    _filter = f;
+    _sort = s;
+    _page = p;
+    await onGet(f, s, p, _search)
+  }
+
   const onCloseDelete = () => {
     setIsOpenDelete(false);
   };
 
   const onConfirmDelete = async () => {
     await onDelete(rowData._id);
-    await onGet();
+    await onGet(_filter, _sort, _page, _search);
     setIsOpenDelete(false);
   };
 
@@ -56,7 +69,8 @@ const DataWrapper = ({
     } else {
       await onAdd(d);
     }
-    await onGet();
+
+    await onGet(_filter, _sort, _page, _search);
     setSubmitting(false);
     setIsOpenEdit(false);
   };
@@ -70,10 +84,10 @@ const DataWrapper = ({
       }}
     >
       <Container maxWidth={false}>
-        <DataToolbar onAdd={onAddClick} disabled={disabled} />
+        <DataToolbar onAdd={onAddClick} disabled={disabled} onChange={onChangeSearch} />
         <Box sx={{ pt: 3 }}>
           <DataGrid
-            onGet={onGet}
+            onChange={onChangeGrid}
             columns={columns}
             data={data}
             total={total}

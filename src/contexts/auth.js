@@ -12,8 +12,8 @@ export function AuthProvider({ children }) {
     total: 0
   });
 
-  async function getUsers(filters, sort, page) {
-    const data = await authUtils.getUsers(filters, sort, page);
+  async function getUsers(filters, sort, page, search) {
+    const data = await authUtils.getUsers(filters, sort, page, search);
     setUsers(data);
   }
 

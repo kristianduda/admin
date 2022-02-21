@@ -10,7 +10,7 @@ export function DataProvider({ children }) {
   });
 
   async function getEnums(filters, sort, page) {
-    const data = await dataUtils.getEnums(filters || enums.filters, sort || enums.sort, page || enums.page);
+    const data = await dataUtils.getEnums(filters, sort, page);
     setEnums(data);
   }
 

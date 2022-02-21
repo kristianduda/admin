@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function DataGridDemo({
-  onGet,
+  onChange,
   columns,
   data,
   total,
@@ -27,25 +27,25 @@ export default function DataGridDemo({
 
   const onFilterModelChange = (f) => {
     setFilterModel(f);
-    onChange(pageModel, pageSizeModel, f, sortModel);
+    handleChange(pageModel, pageSizeModel, f, sortModel);
   };
 
   const onSortModelChange = (s) => {
     setSortModel(s);
-    onChange(pageModel, pageSizeModel, filterModel, s);
+    handleChange(pageModel, pageSizeModel, filterModel, s);
   };
 
   const onPageModelChange = (p) => {
     setPageModel(p);
-    onChange(p, pageSizeModel, filterModel, sortModel);
+    handleChange(p, pageSizeModel, filterModel, sortModel);
   };
 
   const onPageSizeModelChange = (ps) => {
     setPageSizeModel(ps);
-    onChange(pageModel, ps, filterModel, sortModel);
+    handleChange(pageModel, ps, filterModel, sortModel);
   };
 
-  const onChange = async (p, ps, f, s) => {
+  const handleChange = async (p, ps, f, s) => {
     setLoading(true);
     const page = { limit: ps, skip: p * ps };
     const filter = f.items.map((x) =>
@@ -53,12 +53,12 @@ export default function DataGridDemo({
     );
     const sort =
       s && s.length > 0 ? { field: s[0].field, dir: s[0].sort } : undefined;
-    await onGet(filter, sort, page);
+    await onChange(filter, sort, page);
     setLoading(false);
   };
 
   React.useEffect(() => {
-    onChange(pageModel, pageSizeModel, filterModel, sortModel);
+    handleChange(pageModel, pageSizeModel, filterModel, sortModel);
   }, []);
 
   const columnsWithActions = columns.map((c) => {

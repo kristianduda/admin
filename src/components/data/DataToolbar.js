@@ -10,7 +10,21 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from 'react-feather';
 
-const CustomerListToolbar = ({ onAdd, disabled }) => {
+let _timeout;
+const DataToolbar = ({ onAdd, disabled, onChange }) => {
+  const [search, setSearch] = useState('');
+
+  const handleChange = (e) => {
+    if (_timeout !== null) {
+      clearTimeout(_timeout);
+    }
+    _timeout = setTimeout(() => {
+      onChange(e.target.value);
+    }, 500);
+
+    setSearch(e.target.value);
+  };
+
   return (
     <Box>
       <Box sx={{ mt: 3 }}>
@@ -20,6 +34,8 @@ const CustomerListToolbar = ({ onAdd, disabled }) => {
               <Box sx={{ maxWidth: 500, flex: 1 }}>
                 <TextField
                   fullWidth
+                  value={search}
+                  onChange={handleChange}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -52,4 +68,4 @@ const CustomerListToolbar = ({ onAdd, disabled }) => {
   );
 };
 
-export default CustomerListToolbar;
+export default DataToolbar;

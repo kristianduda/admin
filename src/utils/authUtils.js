@@ -8,6 +8,6 @@ export const updateUser = (data) => {
   return a.updateUser(data._id, data);
 };
 
-export const getUsers = (filters, sort, page) => {
-  return a.getUsers(filters, sort, page);
+export const getUsers = (filters, sort, page, search) => {
+  return a.getUsers(filters, sort, page, search);
 }
