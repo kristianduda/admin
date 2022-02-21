@@ -14,7 +14,8 @@ const DataWrapper = ({
   onAdd,
   onEdit,
   onDelete,
-  validationSchema
+  validationSchema,
+  disabled
 }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -78,6 +79,7 @@ const DataWrapper = ({
             total={total}
             onEdit={onEditClick}
             onDelete={onDeleteClick}
+            disabled={disabled}
           />
         </Box>
       </Container>
@@ -87,6 +89,8 @@ const DataWrapper = ({
           initialData={rowData}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
+          disabled={disabled}
+          onCancel={onCloseEdit}
         />
       </DataDetail>
       <ConfirmDialog 

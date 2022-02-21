@@ -29,7 +29,7 @@ const CustomerListToolbar = ({ onAdd }) => {
                       </InputAdornment>
                     )
                   }}
-                  placeholder="Search customer"
+                  placeholder="Search"
                   variant="outlined"
                 />
               </Box>
@@ -39,10 +39,10 @@ const CustomerListToolbar = ({ onAdd }) => {
                   // justifyContent: 'flex-end'
                 }}
               >
-                <Button>Import</Button>
-                <Button sx={{ mx: 1 }}>Export</Button>
+                {/* <Button>Import</Button>
+                <Button sx={{ mx: 1 }}>Export</Button> */}
                 <Button color="primary" variant="contained" onClick={onAdd}>
-                  Add customer
+                  Add
                 </Button>
               </Box>
             </Box>
