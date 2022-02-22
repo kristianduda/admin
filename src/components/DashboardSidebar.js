@@ -41,6 +41,11 @@ const items = [
     title: 'Enums'
   },
   {
+    href: '/app/enums',
+    icon: FolderIcon,
+    title: 'Enums'
+  },
+  {
     href: '/app/products',
     icon: ShoppingBagIcon,
     title: 'Produkty'
