@@ -37,18 +37,13 @@ const items = [
   },
   {
     href: '/app/enums',
-    icon: FolderIcon,
-    title: 'Enums'
-  },
-  {
-    href: '/app/enums',
-    icon: FolderIcon,
-    title: 'Enums'
+    icon: ShoppingBagIcon,
+    title: 'Produkty'
   },
   {
     href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Produkty'
+    icon: FolderIcon,
+    title: 'Products'
   },
   {
     href: '/app/account',
