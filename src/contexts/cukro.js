@@ -9,16 +9,29 @@ export function CukroProvider({ children }) {
     total: 0
   });
 
+  const [category, setCategory] = useState({
+    data: [],
+    total: 0
+  });
+
   async function getProducts(filters, sort, page) {
     const data = await cukroUtils.getProducts(filters, sort, page);
     setProducts(data);
+  }
+
+  async function getCategory(filters, sort, page) {
+    const res = await cukroUtils.getCategory(filters, sort, page);
+
+    setCategory(res);
   }
 
   return (
     <CukroContext.Provider
       value={{
         products,
+        category,
         getProducts,
+        getCategory,
         addProduct: cukroUtils.addProduct,
         editProduct: cukroUtils.editProduct,
         deleteProduct: cukroUtils.deleteProduct

@@ -1,21 +1,30 @@
 import { ajax } from 'kd-web';
 
+const buildUrl = (path) => {
+  return `https://localhost:44388/api/${path}`;
+};
+
 export const getProducts = (filters, sort, page) => {
-  return ajax.get('https://localhost:44301/api/product', filters, sort, page);
+  const url = buildUrl('product');
+  return ajax.get(url, filters, sort, page);
 };
 
 export const addProduct = (data) => {
-  ajax.post('https://localhost:44301/api/product', data);
+  const url = buildUrl('product');
+  ajax.post(url, data);
 };
 
 export const editProduct = (data, id) => {
-  ajax.put(`https://localhost:44301/api/product/${id}`, data);
+  const url = buildUrl('product');
+  ajax.put(`${url}/${id}`, data);
 };
 
 export const deleteProduct = (id) => {
-  ajax.delById(`https://localhost:44301/api/product/${id}`);
+  const url = buildUrl('product');
+  ajax.delById(`${url}/${id}`);
 };
 
 export const getCategory = (filters, sort, page) => {
-  return ajax.get('https://localhost:44301/api/category', filters, sort, page);
+  const url = buildUrl('category');
+  return ajax.get(url, filters, sort, page);
 };
