@@ -17,7 +17,8 @@ export const addProduct = (data) => {
     weight: data.weight,
     variants: { flavour: data.flavour, shape: data.shape },
     price: data.price,
-    materials: data.materials
+    materials: data.materials,
+    minimumAmount: data.minimumAmount
   };
   ajax.post(url, req);
 };

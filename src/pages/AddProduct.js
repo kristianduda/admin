@@ -16,7 +16,8 @@ export default function AddProduct() {
     shape: '',
     price: '',
     material: '',
-    materials: []
+    materials: [],
+    minimumAmount: 1
   });
 
   useEffect(() => {

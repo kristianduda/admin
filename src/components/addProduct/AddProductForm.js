@@ -55,9 +55,6 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
   return (
     <Formik initialValues={initialData} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ values, handleSubmit, setFieldValue, isSubmitting, errors, touched }) => {
-        // console.log('errors:', errors);
-        // console.log('touched:', touched);
-        // console.log('values:', values);
         return (
           <form onSubmit={handleSubmit}>
             <Card>
@@ -170,6 +167,17 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
                       </TextField>
                     )}
 
+                    <TextField
+                      label="Minimálny odber"
+                      name="minimumAmount"
+                      value={values.minimumAmount}
+                      margin="normal"
+                      type="number"
+                      onChange={(e) => onChange(e, setFieldValue)}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="end">KUS</InputAdornment>
+                      }}
+                    />
                     <TextField
                       label="Cena"
                       name="price"
