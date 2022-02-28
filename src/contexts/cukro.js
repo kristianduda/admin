@@ -9,7 +9,7 @@ export function CukroProvider({ children }) {
     total: 0
   });
 
-  const [category, setCategory] = useState({
+  const [categoryList, setCategoryList] = useState({
     data: [],
     total: 0
   });
@@ -19,19 +19,23 @@ export function CukroProvider({ children }) {
     setProducts(data);
   }
 
-  async function getCategory(filters, sort, page) {
-    const res = await cukroUtils.getCategory(filters, sort, page);
-
-    setCategory(res);
+  async function getCategoryList(filters, sort, page) {
+    try {
+      const res = await cukroUtils.getCategoryList(filters, sort, page);
+      setCategoryList(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <CukroContext.Provider
       value={{
         products,
-        category,
+        categoryList,
         getProducts,
-        getCategory,
+        getCategoryList,
         addProduct: cukroUtils.addProduct,
         editProduct: cukroUtils.editProduct,
         deleteProduct: cukroUtils.deleteProduct

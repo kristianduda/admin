@@ -1,25 +1,26 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import AddProductForm from 'src/components/addProduct/AddProductForm';
 import { useCukro } from 'src/contexts/cukro';
 
 export default function AddProduct() {
-  const { addProduct, getCategory, category } = useCukro();
+  const { addProduct, getCategoryList, categoryList } = useCukro();
 
   const [product, setProduct] = useState({
-    categoryRefs: [{ id: '' }],
+    categoryId: '',
     name: '',
-    weight: 0,
-    deliveryDate: 0,
+    weight: '',
+    deliveryDate: '',
     hasShape: false,
-    variants: { flavour: '', shape: '' },
-    price: 0,
+    flavour: '',
+    shape: '',
+    price: '',
     material: '',
     materials: []
   });
 
   useEffect(() => {
-    getCategory();
+    getCategoryList();
   }, []);
 
   return (
@@ -28,7 +29,7 @@ export default function AddProduct() {
         <Typography variant="h1">Nový produkt</Typography>
       </Box>
       <Container maxWidth="lg">
-        <AddProductForm initialData={product} addProduct={addProduct} categoryData={category.data} />
+        <AddProductForm initialData={product} addProduct={addProduct} categoryList={categoryList} />
       </Container>
     </Box>
   );

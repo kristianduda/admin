@@ -14,12 +14,25 @@ import {
   Chip
 } from '@mui/material';
 import { FieldArray, Formik } from 'formik';
+import * as Yup from 'yup';
 
-const AddProductForm = ({ initialData, addProduct, categoryData }) => {
-  const productCategory = categoryData.map((x) => {
-    return { id: x._id, name: x.name };
-  });
+const validationSchema = Yup.object().shape({
+  categoryId: Yup.string().min(2).required('Kategória je povinné pole'),
+  name: Yup.string().min(1).required('Názov produktu je povinné pole'),
+  deliveryDate: Yup.number(),
+  weight: Yup.number(),
+  hasShape: Yup.boolean(),
+  flavour: Yup.string().when('categoryId', {
+    is: (categoryId) => categoryId === '6217af354c49a4266b3007ac' || categoryId === '6217ae954c49a4266b3007ab',
+    then: Yup.string().required('Príchuť je povinné pole')
+  }),
+  shape: Yup.number().when('hasShape', { is: true, then: Yup.number().required('Zvoľte tvar') }),
+  price: Yup.number().min(1).required('Cena je povinné pole'),
+  material: Yup.string().min(4).max(25),
+  materials: Yup.array().of(Yup.string())
+});
 
+const AddProductForm = ({ initialData, addProduct, categoryList }) => {
   const productShape = [
     { value: 1, label: 'Kruh' },
     { value: 3, label: 'Štvorec' },
@@ -40,8 +53,11 @@ const AddProductForm = ({ initialData, addProduct, categoryData }) => {
   };
 
   return (
-    <Formik initialValues={initialData} onSubmit={onSubmit}>
-      {({ values, handleSubmit, setFieldValue, isSubmitting }) => {
+    <Formik initialValues={initialData} validationSchema={validationSchema} onSubmit={onSubmit}>
+      {({ values, handleSubmit, setFieldValue, isSubmitting, errors, touched }) => {
+        // console.log('errors:', errors);
+        // console.log('touched:', touched);
+        // console.log('values:', values);
         return (
           <form onSubmit={handleSubmit}>
             <Card>
@@ -59,14 +75,16 @@ const AddProductForm = ({ initialData, addProduct, categoryData }) => {
                   >
                     <TextField
                       label="Kategória produktu"
-                      value={values.categoryRefs[0].id}
-                      name={`categoryRefs[${0}].id`}
+                      value={values.categoryId}
+                      name={`categoryId`}
                       onChange={(e) => onChange(e, setFieldValue)}
                       select
                       margin="normal"
+                      error={Boolean(touched.categoryId && errors.categoryId)}
+                      helperText={touched.categoryId && errors.categoryId}
                     >
-                      {productCategory.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
+                      {categoryList.data.map((option) => (
+                        <MenuItem key={option.categoryId} value={option.categoryId}>
                           {option.name}
                         </MenuItem>
                       ))}
@@ -78,14 +96,21 @@ const AddProductForm = ({ initialData, addProduct, categoryData }) => {
                       value={values.name}
                       onChange={(e) => onChange(e, setFieldValue)}
                       margin="normal"
+                      error={Boolean(touched.name && errors.name)}
+                      helperText={touched.name && errors.name}
                     />
-                    <TextField
-                      label="Príchuť"
-                      name="variants.flavour"
-                      value={values.variants.flavour}
-                      onChange={(e) => onChange(e, setFieldValue)}
-                      margin="normal"
-                    />
+                    {(values.categoryId === '6217af354c49a4266b3007ac' || values.categoryId === '6217ae954c49a4266b3007ab') && (
+                      <TextField
+                        label="Príchuť"
+                        name="flavour"
+                        value={values.flavour}
+                        onChange={(e) => onChange(e, setFieldValue)}
+                        margin="normal"
+                        error={Boolean(touched.flavour && errors.flavour)}
+                        helperText={touched.flavour && errors.flavour}
+                      />
+                    )}
+
                     <TextField
                       label="Hmotnosť"
                       name="weight"
@@ -112,25 +137,30 @@ const AddProductForm = ({ initialData, addProduct, categoryData }) => {
                   </Grid>
                   <Grid item lg={4} md={6} xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
                     <TextField name="photo" type="file" margin="normal" />
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          name="hasShape"
-                          checked={values.hasShape}
-                          onChange={(e) => setFieldValue(e.target.name, e.target.checked)}
-                        />
-                      }
-                      label="Má produkt tvar?"
-                      style={{ margin: '21px 0px' }}
-                    />
+                    {(values.categoryId === '6217af354c49a4266b3007ac' || values.categoryId === '6217ae954c49a4266b3007ab') && (
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            name="hasShape"
+                            checked={values.hasShape}
+                            onChange={(e) => setFieldValue(e.target.name, e.target.checked)}
+                          />
+                        }
+                        label="Má produkt tvar?"
+                        style={{ margin: '21px 0px' }}
+                      />
+                    )}
+
                     {values.hasShape && (
                       <TextField
                         label="Tvar produktu"
-                        name="variants.shape"
-                        value={values.variants.shape}
+                        name="shape"
+                        value={values.shape}
                         onChange={(e) => onChange(e, setFieldValue)}
                         select
                         margin="normal"
+                        error={Boolean(touched.shape && errors.shape)}
+                        helperText={touched.shape && errors.shape}
                       >
                         {productShape.map((option) => (
                           <MenuItem key={option.value} value={option.value}>
@@ -150,6 +180,8 @@ const AddProductForm = ({ initialData, addProduct, categoryData }) => {
                       InputProps={{
                         endAdornment: <InputAdornment position="end">EUR</InputAdornment>
                       }}
+                      error={Boolean(touched.price && errors.price)}
+                      helperText={touched.price && errors.price}
                     />
                   </Grid>
                   <Grid item lg={4} md={12} xs={12}>
