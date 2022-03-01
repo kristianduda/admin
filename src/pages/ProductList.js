@@ -13,6 +13,7 @@ const ProductList = () => {
     getProducts();
   }, []);
 
+  console.log('productList products: ', products);
   return (
     <>
       <Helmet>
@@ -27,11 +28,10 @@ const ProductList = () => {
       >
         <Container maxWidth={false}>
           <ProductListToolbar addProduct={addProduct} />
-          <Box></Box>
           <Box sx={{ pt: 5 }}>
             <Grid container spacing={3}>
-              {products1.map((product) => (
-                <Grid item key={product.id} lg={3} md={4} xs={12}>
+              {products.data.map((product) => (
+                <Grid item key={product._id} lg={3} md={4} xs={12}>
                   <ProductCard product={product} />
                 </Grid>
               ))}

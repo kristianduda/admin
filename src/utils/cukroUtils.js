@@ -4,9 +4,32 @@ const buildUrl = (path) => {
   return `https://localhost:44388/api/${path}`;
 };
 
-export const getProducts = (filters, sort, page) => {
+export const getProducts = async (filters, sort, page) => {
   const url = buildUrl('product');
-  return ajax.get(url, filters, sort, page);
+  const res = await ajax.get(url, filters, sort, page);
+
+  const productCategoryName = (categoryId) => {
+    switch (categoryId) {
+      case '6217af354c49a4266b3007ac':
+        return 'Koláče';
+      case '6217af9b4c49a4266b3007ad':
+        return 'Torty';
+      default:
+        return 'Špeciality';
+    }
+  };
+
+  const data = res.data.map((x) => {
+    return {
+      ...x,
+      categoryRefs: [{ id: x.categoryRefs[0].id, name: productCategoryName(x.categoryRefs[0].id) }]
+    };
+  });
+
+  return {
+    total: res.total,
+    data: data
+  };
 };
 
 export const addProduct = (data) => {

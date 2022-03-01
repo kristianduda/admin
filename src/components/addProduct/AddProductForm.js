@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
     is: (categoryId) => categoryId === '6217af354c49a4266b3007ac' || categoryId === '6217ae954c49a4266b3007ab',
     then: Yup.string().required('Príchuť je povinné pole')
   }),
-  shape: Yup.number().when('hasShape', { is: true, then: Yup.number().required('Zvoľte tvar') }),
+  shape: Yup.string().when('hasShape', { is: true, then: Yup.string().required('Zvoľte tvar') }),
   price: Yup.number().min(1).required('Cena je povinné pole'),
   material: Yup.string().min(4).max(25),
   materials: Yup.array().of(Yup.string())
@@ -160,7 +160,7 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
                         helperText={touched.shape && errors.shape}
                       >
                         {productShape.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
+                          <MenuItem key={option.value} value={option.label}>
                             {option.label}
                           </MenuItem>
                         ))}

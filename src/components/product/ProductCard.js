@@ -1,15 +1,8 @@
 import PropTypes from 'prop-types';
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Typography
-} from '@mui/material';
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import ProductIcon from './ProductIcon';
 
 const ProductCard = ({ product, ...rest }) => (
   <Card
@@ -24,40 +17,35 @@ const ProductCard = ({ product, ...rest }) => (
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          pb: 3
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          pb: 2
         }}
       >
-        <Avatar
-          alt="Product"
-          src={product.media}
-          variant="square"
-        />
+        <ProductIcon productType={product.categoryRefs[0].id} />
+        <Typography color="textPrimary" gutterBottom variant="h4" mx={2}>
+          {product.name}
+        </Typography>
       </Box>
-      <Typography
-        align="center"
-        color="textPrimary"
-        gutterBottom
-        variant="h4"
-      >
-        {product.title}
-      </Typography>
-      <Typography
-        align="center"
-        color="textPrimary"
-        variant="body1"
-      >
-        {product.description}
-      </Typography>
+
+      <Typography pb={2}>Kategória: {product.categoryRefs[0].name}</Typography>
+      {product.variants !== null && product.variants.flavour.length > 0 && (
+        <Typography pb={1}>Príchuť: {product.variants.flavour}</Typography>
+      )}
+      {product.variants !== null && product.variants.shape.length > 0 && <Typography pb={1}>Tvar: {product.variants.shape}</Typography>}
+      {product.weight > 0 && <Typography pb={1}>Hmotnosť: {product.weight} gramov</Typography>}
+      {product.deliveryDate > 0 && (
+        <Typography pb={1}>
+          Čas dodania: {product.deliveryDate} {product.deliveryDate === 1 ? 'deň' : 'dni'}
+        </Typography>
+      )}
+      {product.minimumAmount > 0 && <Typography pb={1}>Minimálny odber: {product.minimumAmount} ks</Typography>}
+      <Typography pb={1}>Cena: {product.price}€</Typography>
     </CardContent>
     <Box sx={{ flexGrow: 1 }} />
     <Divider />
     <Box sx={{ p: 2 }}>
-      <Grid
-        container
-        spacing={2}
-        sx={{ justifyContent: 'space-between' }}
-      >
+      <Grid container spacing={2} sx={{ justifyContent: 'space-between' }}>
         <Grid
           item
           sx={{
@@ -66,12 +54,7 @@ const ProductCard = ({ product, ...rest }) => (
           }}
         >
           <AccessTimeIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
+          <Typography color="textSecondary" display="inline" sx={{ pl: 1 }} variant="body2">
             Updated 2hr ago
           </Typography>
         </Grid>
@@ -83,15 +66,8 @@ const ProductCard = ({ product, ...rest }) => (
           }}
         >
           <GetAppIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
-            {product.totalDownloads}
-            {' '}
-            Downloads
+          <Typography color="textSecondary" display="inline" sx={{ pl: 1 }} variant="body2">
+            {product.totalDownloads} Downloads
           </Typography>
         </Grid>
       </Grid>
