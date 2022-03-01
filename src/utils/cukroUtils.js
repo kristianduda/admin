@@ -52,8 +52,8 @@ export const editProduct = (data, id) => {
 };
 
 export const deleteProduct = (id) => {
-  const url = buildUrl('product');
-  ajax.delById(`${url}/${id}`);
+  const url = buildUrl(`product`);
+  ajax.delById(url, id);
 };
 
 export const getCategoryList = async (filters, sort, page) => {
