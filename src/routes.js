@@ -10,7 +10,7 @@ import ProductList from './pages/ProductList';
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import ProductsList from './pages/ProductsList';
-import AddProduct from './pages/AddProduct';
+import Product from './pages/Product';
 
 const routes = [
   {
@@ -23,7 +23,7 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'products/new', element: <AddProduct /> },
-      { path: 'product/:id', element: <AddProduct /> },
+      { path: 'product/:id', element: <Product /> },
       { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

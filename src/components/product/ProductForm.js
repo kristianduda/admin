@@ -33,7 +33,7 @@ const validationSchema = Yup.object().shape({
   materials: Yup.array().of(Yup.string())
 });
 
-const AddProductForm = ({ categoryList, productId }) => {
+const ProductForm = ({ categoryList, productId }) => {
   const { addProduct, editProduct, product } = useCukro();
 
   const productShape = [
@@ -256,4 +256,4 @@ const AddProductForm = ({ categoryList, productId }) => {
   );
 };
 
-export default AddProductForm;
+export default ProductForm;
