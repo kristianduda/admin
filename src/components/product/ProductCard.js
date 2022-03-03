@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
-import { Box, Card, CardContent, Divider, Grid, Typography, Tooltip, IconButton, Button } from '@mui/material';
+import { Box, Card, CardContent, Divider, Grid, Typography, Tooltip, IconButton } from '@mui/material';
 import ProductIcon from './ProductIcon';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
+import { useNavigate } from 'react-router';
 
-const ProductCard = ({ product, deleteProduct, editProduct, getProducts }) => {
-  console.log('delete: ', deleteProduct);
+const ProductCard = ({ product, deleteProduct }) => {
+  let navigate = useNavigate();
+
+  const edit = async (id) => {
+    navigate(`../product/${id}`);
+  };
+
   const actions = [
     {
       label: 'edit',
       value: 1,
       element: <ModeEditIcon color="action" />,
-      description: 'Upraviť produkt'
+      description: 'Upraviť produkt',
+      action: edit
     },
     {
       label: 'disable',
@@ -34,7 +41,6 @@ const ProductCard = ({ product, deleteProduct, editProduct, getProducts }) => {
       description: 'Odstrániť',
       action: async (id) => {
         await deleteProduct(id);
-        await getProducts();
       }
     }
   ];

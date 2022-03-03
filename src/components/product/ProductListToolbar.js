@@ -2,12 +2,24 @@ import { Box, Button, Card, CardContent, TextField, InputAdornment, SvgIcon } fr
 import { Search as SearchIcon } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
-let _filter, _sort, _page;
 const ProductListToolbar = (props) => {
   let navigate = useNavigate();
 
   const newProduct = () => {
     navigate('../products/new');
+    props.setProduct({
+      categoryId: '',
+      name: '',
+      weight: '',
+      deliveryDate: '',
+      hasShape: false,
+      flavour: '',
+      shape: '',
+      price: 0,
+      material: '',
+      materials: [],
+      minimumAmount: 1
+    });
   };
 
   return (

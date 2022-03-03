@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { FieldArray, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useCukro } from 'src/contexts/cukro';
 
 const validationSchema = Yup.object().shape({
   categoryId: Yup.string().min(2).required('Kategória je povinné pole'),
@@ -32,7 +33,9 @@ const validationSchema = Yup.object().shape({
   materials: Yup.array().of(Yup.string())
 });
 
-const AddProductForm = ({ initialData, addProduct, categoryList }) => {
+const AddProductForm = ({ categoryList, productId }) => {
+  const { addProduct, editProduct, product } = useCukro();
+
   const productShape = [
     { value: 1, label: 'Kruh' },
     { value: 3, label: 'Štvorec' },
@@ -43,9 +46,14 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
   ];
 
   const onSubmit = async (data, { setSubmitting, resetForm }) => {
-    await addProduct(data);
+    if (productId !== undefined) {
+      await editProduct(data, productId);
+    } else {
+      await addProduct(data);
+      resetForm();
+    }
+
     setSubmitting(false);
-    resetForm();
   };
 
   const onChange = (e, setValue) => {
@@ -53,7 +61,7 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
   };
 
   return (
-    <Formik initialValues={initialData} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik initialValues={product} validationSchema={validationSchema} onSubmit={onSubmit} enableReinitialize={true}>
       {({ values, handleSubmit, setFieldValue, isSubmitting, errors, touched }) => {
         return (
           <form onSubmit={handleSubmit}>
@@ -198,7 +206,7 @@ const AddProductForm = ({ initialData, addProduct, categoryList }) => {
                         const { push, remove, form } = fieldArrayProps;
                         const { values, setFieldValue } = form;
                         const addMaterial = (material) => {
-                          push(material);
+                          material.length > 2 && push(material);
                           setFieldValue('material', '');
                         };
                         return (

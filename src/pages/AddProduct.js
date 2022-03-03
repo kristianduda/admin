@@ -1,27 +1,22 @@
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Box, Container, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import AddProductForm from 'src/components/addProduct/AddProductForm';
 import { useCukro } from 'src/contexts/cukro';
+import AddProductForm from 'src/components/addProduct/AddProductForm';
 
 export default function AddProduct() {
-  const { addProduct, getCategoryList, categoryList } = useCukro();
+  const { getCategoryList, categoryList, getProduct } = useCukro();
 
-  const [product, setProduct] = useState({
-    categoryId: '',
-    name: '',
-    weight: '',
-    deliveryDate: '',
-    hasShape: false,
-    flavour: '',
-    shape: '',
-    price: '',
-    material: '',
-    materials: [],
-    minimumAmount: 1
-  });
+  // z url odchytit id produktu
+  let productId = useParams();
 
-  useEffect(() => {
-    getCategoryList();
+  useEffect(async () => {
+    await getCategoryList();
+
+    //dotiahnuť daný produkt
+    if (Object.keys(productId).length > 0) {
+      await getProduct(productId.id);
+    }
   }, []);
 
   return (
@@ -30,7 +25,7 @@ export default function AddProduct() {
         <Typography variant="h1">Nový produkt</Typography>
       </Box>
       <Container maxWidth="lg">
-        <AddProductForm initialData={product} addProduct={addProduct} categoryList={categoryList} />
+        <AddProductForm categoryList={categoryList} productId={productId.id} />
       </Container>
     </Box>
   );

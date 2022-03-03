@@ -9,6 +9,20 @@ export function CukroProvider({ children }) {
     total: 0
   });
 
+  const [product, setProduct] = useState({
+    categoryId: '',
+    name: '',
+    weight: '',
+    deliveryDate: '',
+    hasShape: false,
+    flavour: '',
+    shape: '',
+    price: 0,
+    material: '',
+    materials: [],
+    minimumAmount: 1
+  });
+
   const [categoryList, setCategoryList] = useState({
     data: [],
     total: 0
@@ -17,6 +31,23 @@ export function CukroProvider({ children }) {
   async function getProducts(filters, sort, page) {
     const data = await cukroUtils.getProducts(filters, sort, page);
     setProducts(data);
+  }
+
+  async function getProduct(id) {
+    const data = await cukroUtils.getProduct(id);
+    setProduct({
+      categoryId: data.categoryRefs[0].id,
+      name: data.name,
+      weight: data.weight,
+      deliveryDate: data.deliveryDate,
+      hasShape: data.variants.shape.length > 0,
+      flavour: data.variants.flavour,
+      shape: data.variants.shape,
+      price: data.price,
+      material: '',
+      materials: data.materials,
+      minimumAmount: data.minimumAmount
+    });
   }
 
   async function getCategoryList(filters, sort, page) {
@@ -33,8 +64,11 @@ export function CukroProvider({ children }) {
     <CukroContext.Provider
       value={{
         products,
+        product,
         categoryList,
         getProducts,
+        getProduct,
+        setProduct,
         getCategoryList,
         addProduct: cukroUtils.addProduct,
         editProduct: cukroUtils.editProduct,

@@ -32,6 +32,11 @@ export const getProducts = async (filters, sort, page) => {
   };
 };
 
+export const getProduct = (id) => {
+  const url = buildUrl('product');
+  return ajax.getById(url, id);
+};
+
 export const addProduct = (data) => {
   const url = buildUrl('product');
   const req = {
@@ -48,7 +53,16 @@ export const addProduct = (data) => {
 
 export const editProduct = (data, id) => {
   const url = buildUrl('product');
-  ajax.put(`${url}/${id}`, data);
+  const req = {
+    categoryRefs: [{ id: data.categoryId }],
+    name: data.name,
+    weight: data.weight,
+    variants: { flavour: data.flavour, shape: data.shape },
+    price: data.price,
+    materials: data.materials,
+    minimumAmount: data.minimumAmount
+  };
+  ajax.put(url, req, id);
 };
 
 export const deleteProduct = (id) => {

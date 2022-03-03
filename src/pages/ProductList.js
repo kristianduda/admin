@@ -1,16 +1,15 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Box, Container, Grid, Pagination } from '@mui/material';
 import ProductListToolbar from '../components/product/ProductListToolbar';
 import ProductCard from '../components/product/ProductCard';
-import products1 from '../__mocks__/products';
 import { useCukro } from 'src/contexts/cukro';
-import { useEffect } from 'react';
 
 const ProductList = () => {
-  const { products, getProducts, addProduct, editProduct, deleteProduct } = useCukro();
+  const { products, getProducts, deleteProduct, setProduct } = useCukro();
 
-  useEffect(() => {
-    getProducts();
+  useEffect(async () => {
+    await getProducts();
   }, []);
 
   return (
@@ -26,12 +25,12 @@ const ProductList = () => {
         }}
       >
         <Container maxWidth={false}>
-          <ProductListToolbar addProduct={addProduct} />
+          <ProductListToolbar setProduct={setProduct} />
           <Box sx={{ pt: 5 }}>
             <Grid container spacing={3}>
               {products.data.map((product) => (
                 <Grid item key={product._id} lg={3} md={4} xs={12}>
-                  <ProductCard product={product} deleteProduct={deleteProduct} editProduct={editProduct} getProducts={getProducts} />
+                  <ProductCard product={product} deleteProduct={deleteProduct} />
                 </Grid>
               ))}
             </Grid>
