@@ -7,7 +7,6 @@ const buildUrl = (path) => {
 export const getProducts = async (filters, sort, page) => {
   const url = buildUrl('product');
   const res = await ajax.get(url, filters, sort, page);
-
   const productCategoryName = (categoryId) => {
     switch (categoryId) {
       case '6217af354c49a4266b3007ac':
@@ -51,8 +50,9 @@ export const addProduct = (data) => {
   ajax.post(url, req);
 };
 
-export const editProduct = (data, id) => {
+export const editProduct = async (id, data) => {
   const url = buildUrl('product');
+  // doplnit try/catch
   const req = {
     categoryRefs: [{ id: data.categoryId }],
     name: data.name,
@@ -60,14 +60,15 @@ export const editProduct = (data, id) => {
     variants: { flavour: data.flavour, shape: data.shape },
     price: data.price,
     materials: data.materials,
-    minimumAmount: data.minimumAmount
+    minimumAmount: data.minimumAmount,
+    disabled: data.disabled
   };
-  ajax.put(url, req, id);
+  return await ajax.put(url, req, id);
 };
 
-export const deleteProduct = (id) => {
+export const deleteProduct = async (id) => {
   const url = buildUrl(`product`);
-  ajax.delById(url, id);
+  await ajax.delById(url, id);
 };
 
 export const getCategoryList = async (filters, sort, page) => {

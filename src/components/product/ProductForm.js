@@ -47,7 +47,7 @@ const ProductForm = ({ categoryList, productId }) => {
 
   const onSubmit = async (data, { setSubmitting, resetForm }) => {
     if (productId !== undefined) {
-      await editProduct(data, productId);
+      await editProduct(productId, data);
     } else {
       await addProduct(data);
       resetForm();

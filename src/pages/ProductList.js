@@ -6,8 +6,7 @@ import ProductCard from '../components/product/ProductCard';
 import { useCukro } from 'src/contexts/cukro';
 
 const ProductList = () => {
-  const { products, getProducts, deleteProduct, setProduct } = useCukro();
-
+  const { products, getProducts, deleteProduct, setProduct, updateProduct } = useCukro();
   useEffect(async () => {
     await getProducts();
   }, []);
@@ -28,9 +27,9 @@ const ProductList = () => {
           <ProductListToolbar setProduct={setProduct} />
           <Box sx={{ pt: 5 }}>
             <Grid container spacing={3}>
-              {products.data.map((product) => (
-                <Grid item key={product._id} lg={3} md={4} xs={12}>
-                  <ProductCard product={product} deleteProduct={deleteProduct} />
+              {products.data.map((item) => (
+                <Grid item key={item._id} lg={3} md={4} xs={12}>
+                  <ProductCard item={item} deleteProduct={deleteProduct} updateProduct={updateProduct} />
                 </Grid>
               ))}
             </Grid>

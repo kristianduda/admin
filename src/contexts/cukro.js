@@ -20,7 +20,8 @@ export function CukroProvider({ children }) {
     price: 0,
     material: '',
     materials: [],
-    minimumAmount: 1
+    minimumAmount: 1,
+    disabled: false
   });
 
   const [categoryList, setCategoryList] = useState({
@@ -60,6 +61,30 @@ export function CukroProvider({ children }) {
     }
   }
 
+  async function updateProduct(id, product) {
+    const updatedProduct = await cukroUtils.editProduct(id, product);
+    const newProductsData = products.data.map((curr) => {
+      if (curr._id === id) {
+        return updatedProduct;
+      }
+      return curr;
+    });
+
+    setProducts({ total: products.total, data: newProductsData });
+  }
+
+  async function deleteProduct(id) {
+    try {
+      await cukroUtils.deleteProduct(id);
+
+      const newProductsData = products.data.filter((curr) => curr._id !== id);
+
+      setProducts({ total: products.total, data: newProductsData });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <CukroContext.Provider
       value={{
@@ -72,7 +97,8 @@ export function CukroProvider({ children }) {
         getCategoryList,
         addProduct: cukroUtils.addProduct,
         editProduct: cukroUtils.editProduct,
-        deleteProduct: cukroUtils.deleteProduct
+        deleteProduct,
+        updateProduct
       }}
     >
       {children}

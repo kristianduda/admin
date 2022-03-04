@@ -22,7 +22,7 @@ const routes = [
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
-      { path: 'products/new', element: <AddProduct /> },
+      { path: 'products/new', element: <Product /> },
       { path: 'product/:id', element: <Product /> },
       { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }

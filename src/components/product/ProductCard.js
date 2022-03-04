@@ -7,11 +7,30 @@ import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
 import { useNavigate } from 'react-router';
 
-const ProductCard = ({ product, deleteProduct }) => {
+const ProductCard = ({ item, deleteProduct, updateProduct }) => {
   let navigate = useNavigate();
 
-  const edit = async (id) => {
+  const edit = (id) => {
     navigate(`../product/${id}`);
+  };
+
+  const markAsUnavailble = async (id) => {
+    let newProduct = {
+      categoryId: item.categoryRefs[0].id,
+      name: item.name,
+      weight: item.weight,
+      deliveryDate: item.deliveryDate,
+      hasShape: item.variants.shape.length > 0,
+      flavour: item.variants.flavour,
+      shape: item.variants.shape,
+      price: item.price,
+      material: '',
+      materials: item.materials,
+      minimumAmount: item.minimumAmount,
+      disabled: !item.disabled
+    };
+
+    await updateProduct(id, newProduct);
   };
 
   const actions = [
@@ -26,7 +45,8 @@ const ProductCard = ({ product, deleteProduct }) => {
       label: 'disable',
       value: 3,
       element: <DoDisturbIcon color="action" />,
-      description: 'Označiť ako nedostupné'
+      description: 'Označiť ako nedostupné',
+      action: (id) => markAsUnavailble(id)
     },
     {
       label: 'promote',
@@ -62,25 +82,24 @@ const ProductCard = ({ product, deleteProduct }) => {
             pb: 2
           }}
         >
-          <ProductIcon productType={product.categoryRefs[0].id} />
+          <ProductIcon productType={item.categoryRefs[0]?.id} />
           <Typography color="textPrimary" gutterBottom variant="h4" mx={2}>
-            {product.name}
+            {item.name}
           </Typography>
         </Box>
 
-        <Typography pb={2}>Kategória: {product.categoryRefs[0].name}</Typography>
-        {product.variants !== null && product.variants.flavour.length > 0 && (
-          <Typography pb={1}>Príchuť: {product.variants.flavour}</Typography>
-        )}
-        {product.variants !== null && product.variants.shape.length > 0 && <Typography pb={1}>Tvar: {product.variants.shape}</Typography>}
-        {product.weight > 0 && <Typography pb={1}>Hmotnosť: {product.weight} gramov</Typography>}
-        {product.deliveryDate > 0 && (
+        <Typography pb={2}>Kategória: {item.categoryRefs[0]?.name}</Typography>
+        {item.disabled && <Typography pb={2}>Produkt je nedostupný</Typography>}
+        {item.variants !== null && item.variants.flavour.length > 0 && <Typography pb={1}>Príchuť: {item.variants.flavour}</Typography>}
+        {item.variants !== null && item.variants.shape.length > 0 && <Typography pb={1}>Tvar: {item.variants.shape}</Typography>}
+        {item.weight > 0 && <Typography pb={1}>Hmotnosť: {item.weight} gramov</Typography>}
+        {item.deliveryDate > 0 && (
           <Typography pb={1}>
-            Čas dodania: {product.deliveryDate} {product.deliveryDate === 1 ? 'deň' : 'dni'}
+            Čas dodania: {item.deliveryDate} {item.deliveryDate === 1 ? 'deň' : 'dni'}
           </Typography>
         )}
-        {product.minimumAmount > 0 && <Typography pb={1}>Minimálny odber: {product.minimumAmount} ks</Typography>}
-        <Typography pb={1}>Cena: {product.price}€</Typography>
+        {item.minimumAmount > 0 && <Typography pb={1}>Minimálny odber: {item.minimumAmount} ks</Typography>}
+        <Typography pb={1}>Cena: {item.price}€</Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
@@ -88,7 +107,7 @@ const ProductCard = ({ product, deleteProduct }) => {
         <Grid container sx={{ justifyContent: 'space-around' }}>
           {actions.map((action) => (
             <Tooltip title={action.description} key={action.value}>
-              <IconButton onClick={() => action.action(product._id)}>{action.element}</IconButton>
+              <IconButton onClick={() => action.action(item._id)}>{action.element}</IconButton>
             </Tooltip>
           ))}
         </Grid>
