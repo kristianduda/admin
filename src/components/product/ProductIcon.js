@@ -1,27 +1,26 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
 import CakeIcon from '@mui/icons-material/Cake';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import SplitscreenIcon from '@mui/icons-material/Splitscreen';
-import { orange, purple, indigo } from '@mui/material/colors';
+import { orange, purple, indigo, grey } from '@mui/material/colors';
 
-export default function ProductIcon({ productType }) {
+export default function ProductIcon({ productType, disabled }) {
   const productShape = () => {
     switch (productType) {
       case '6217af9b4c49a4266b3007ad':
         return {
-          color: orange[600],
+          color: disabled ? grey[500] : orange[600],
           element: <CakeIcon />
         };
       case '6217af354c49a4266b3007ac':
         return {
-          color: purple[600],
+          color: disabled ? grey[500] : purple[600],
           element: <SplitscreenIcon />
         };
       default:
         return {
-          color: indigo[600],
+          color: disabled ? grey[500] : indigo[600],
           element: <CelebrationIcon />
         };
     }

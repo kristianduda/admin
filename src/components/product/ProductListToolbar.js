@@ -49,7 +49,7 @@ const ProductListToolbar = (props) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search product"
+                placeholder="Vyhľadať produkt"
                 variant="outlined"
               />
             </Box>

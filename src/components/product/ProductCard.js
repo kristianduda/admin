@@ -6,6 +6,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
 import { useNavigate } from 'react-router';
+import { grey } from '@mui/material/colors';
 
 const ProductCard = ({ item, deleteProduct, updateProduct }) => {
   let navigate = useNavigate();
@@ -70,15 +71,15 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
     {
       label: 'disable',
       value: 3,
-      element: <DoDisturbIcon color="action" />,
-      description: 'Označiť ako nedostupné',
+      element: <DoDisturbIcon color={item.disabled ? 'primary' : 'action'} />,
+      description: item.disabled ? 'Označiť ako dostupné' : 'Označiť ako nedostupné',
       action: (id) => markAsUnavailble(id)
     },
     {
       label: 'promote',
       value: 5,
-      element: <MoveUpIcon color="action" />,
-      description: 'Pridať na úvodnú stránku',
+      element: <MoveUpIcon color={item.promote ? 'primary' : 'action'} />,
+      description: item.promote ? 'Odobrať z úvodnej obrazovky' : 'Pridať na úvodnú obrazovku',
       action: (id) => promote(id)
     },
     {
@@ -92,12 +93,15 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
     }
   ];
 
+  const disableColor = () => item.disabled && { color: grey[500] };
+
   return (
     <Card
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        backgroundColor: item.disabled && grey[300]
       }}
     >
       <CardContent>
@@ -109,25 +113,48 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
             pb: 2
           }}
         >
-          <ProductIcon productType={item.categoryRefs[0]?.id} />
-          <Typography color="textPrimary" gutterBottom variant="h4" mx={2}>
+          <ProductIcon productType={item.categoryRefs[0]?.id} disabled={item.disabled} />
+          <Typography color="textPrimary" gutterBottom variant="h4" mx={2} sx={disableColor()}>
             {item.name}
           </Typography>
         </Box>
 
-        <Typography pb={2}>Kategória: {productCategoryName(item.categoryRefs[0].id)}</Typography>
-        {item.disabled && <Typography pb={2}>Produkt je nedostupný</Typography>}
-        {item.promote && <Typography pb={2}>Produkt je pridaný na úvodnú stránku</Typography>}
-        {item.variants !== null && item.variants.flavour.length > 0 && <Typography pb={1}>Príchuť: {item.variants.flavour}</Typography>}
-        {item.variants !== null && item.variants.shape.length > 0 && <Typography pb={1}>Tvar: {item.variants.shape}</Typography>}
-        {item.weight > 0 && <Typography pb={1}>Hmotnosť: {item.weight} gramov</Typography>}
+        <Typography pb={2} sx={disableColor()}>
+          Kategória: {productCategoryName(item.categoryRefs[0].id)}
+        </Typography>
+        {item.variants !== null && item.variants.flavour.length > 0 && (
+          <Typography pb={1} sx={disableColor()}>
+            Príchuť: {item.variants.flavour}
+          </Typography>
+        )}
+        {item.variants !== null && item.variants.shape.length > 0 && (
+          <Typography pb={1} sx={disableColor()}>
+            Tvar: {item.variants.shape}
+          </Typography>
+        )}
+        {item.weight > 0 && (
+          <Typography pb={1} sx={disableColor()}>
+            Hmotnosť: {item.weight} gramov
+          </Typography>
+        )}
         {item.deliveryDate > 0 && (
-          <Typography pb={1}>
+          <Typography pb={1} sx={disableColor()}>
             Čas dodania: {item.deliveryDate} {item.deliveryDate === 1 ? 'deň' : 'dni'}
           </Typography>
         )}
-        {item.minimumAmount > 0 && <Typography pb={1}>Minimálny odber: {item.minimumAmount} ks</Typography>}
-        <Typography pb={1}>Cena: {item.price}€</Typography>
+        {item.minimumAmount > 0 && (
+          <Typography pb={1} sx={disableColor()}>
+            Minimálny odber: {item.minimumAmount} ks
+          </Typography>
+        )}
+        <Typography pb={1} sx={disableColor()}>
+          Cena: {item.price}€
+        </Typography>
+        {item.promote && (
+          <Typography pb={2} mt={2} color="primary" sx={disableColor()}>
+            Produkt je na úvodnej stránke
+          </Typography>
+        )}
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
