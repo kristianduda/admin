@@ -55,6 +55,7 @@ export const editProduct = async (id, data) => {
   // doplnit try/catch
   const req = {
     categoryRefs: [{ id: data.categoryId }],
+    deliveryDate: data.deliveryDate,
     name: data.name,
     weight: data.weight,
     variants: { flavour: data.flavour, shape: data.shape },

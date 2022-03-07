@@ -60,9 +60,12 @@ const ProductForm = ({ categoryList, productId }) => {
     setValue(e.target.name, e.target.value);
   };
 
+  console.log('product: ', product);
+
   return (
     <Formik initialValues={product} validationSchema={validationSchema} onSubmit={onSubmit} enableReinitialize={true}>
       {({ values, handleSubmit, setFieldValue, isSubmitting, errors, touched }) => {
+        console.log('values: ', values);
         return (
           <form onSubmit={handleSubmit}>
             <Card>
