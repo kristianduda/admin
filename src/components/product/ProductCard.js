@@ -10,27 +10,53 @@ import { useNavigate } from 'react-router';
 const ProductCard = ({ item, deleteProduct, updateProduct }) => {
   let navigate = useNavigate();
 
+  let newProduct = {
+    categoryId: item.categoryRefs[0].id,
+    name: item.name,
+    weight: item.weight,
+    deliveryDate: item.deliveryDate,
+    hasShape: item.variants.shape.length > 0,
+    flavour: item.variants.flavour,
+    shape: item.variants.shape,
+    price: item.price,
+    material: '',
+    materials: item.materials,
+    minimumAmount: item.minimumAmount,
+    disabled: item.disabled,
+    promote: item.promote
+  };
+
+  const productCategoryName = (categoryId) => {
+    switch (categoryId) {
+      case '6217af354c49a4266b3007ac':
+        return 'Koláče';
+      case '6217af9b4c49a4266b3007ad':
+        return 'Torty';
+      default:
+        return 'Špeciality';
+    }
+  };
+
   const edit = (id) => {
     navigate(`../product/${id}`);
   };
 
   const markAsUnavailble = async (id) => {
-    let newProduct = {
-      categoryId: item.categoryRefs[0].id,
-      name: item.name,
-      weight: item.weight,
-      deliveryDate: item.deliveryDate,
-      hasShape: item.variants.shape.length > 0,
-      flavour: item.variants.flavour,
-      shape: item.variants.shape,
-      price: item.price,
-      material: '',
-      materials: item.materials,
-      minimumAmount: item.minimumAmount,
+    let data = {
+      ...newProduct,
       disabled: !item.disabled
     };
 
-    await updateProduct(id, newProduct);
+    await updateProduct(id, data);
+  };
+
+  const promote = async (id) => {
+    let data = {
+      ...newProduct,
+      promote: !item.promote
+    };
+
+    await updateProduct(id, data);
   };
 
   const actions = [
@@ -52,7 +78,8 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
       label: 'promote',
       value: 5,
       element: <MoveUpIcon color="action" />,
-      description: 'Pridať na úvodnú stránku'
+      description: 'Pridať na úvodnú stránku',
+      action: (id) => promote(id)
     },
     {
       label: 'delete',
@@ -88,8 +115,9 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
           </Typography>
         </Box>
 
-        <Typography pb={2}>Kategória: {item.categoryRefs[0]?.name}</Typography>
+        <Typography pb={2}>Kategória: {productCategoryName(item.categoryRefs[0].id)}</Typography>
         {item.disabled && <Typography pb={2}>Produkt je nedostupný</Typography>}
+        {item.promote && <Typography pb={2}>Produkt je pridaný na úvodnú stránku</Typography>}
         {item.variants !== null && item.variants.flavour.length > 0 && <Typography pb={1}>Príchuť: {item.variants.flavour}</Typography>}
         {item.variants !== null && item.variants.shape.length > 0 && <Typography pb={1}>Tvar: {item.variants.shape}</Typography>}
         {item.weight > 0 && <Typography pb={1}>Hmotnosť: {item.weight} gramov</Typography>}
@@ -117,7 +145,7 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired
 };
 
 export default ProductCard;

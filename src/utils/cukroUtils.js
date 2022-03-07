@@ -61,7 +61,8 @@ export const editProduct = async (id, data) => {
     price: data.price,
     materials: data.materials,
     minimumAmount: data.minimumAmount,
-    disabled: data.disabled
+    disabled: data.disabled,
+    promote: data.promote
   };
   return await ajax.put(url, req, id);
 };

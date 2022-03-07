@@ -21,7 +21,8 @@ export function CukroProvider({ children }) {
     material: '',
     materials: [],
     minimumAmount: 1,
-    disabled: false
+    disabled: false,
+    promote: false
   });
 
   const [categoryList, setCategoryList] = useState({
@@ -47,7 +48,8 @@ export function CukroProvider({ children }) {
       price: data.price,
       material: '',
       materials: data.materials,
-      minimumAmount: data.minimumAmount
+      minimumAmount: data.minimumAmount,
+      promote: data.promote
     });
   }
 
