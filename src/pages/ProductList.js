@@ -4,11 +4,17 @@ import { Box, Container, Grid, Pagination } from '@mui/material';
 import ProductListToolbar from '../components/product/ProductListToolbar';
 import ProductCard from '../components/product/ProductCard';
 import { useCukro } from 'src/contexts/cukro';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductList = () => {
   const { products, getProducts, deleteProduct, setProduct, updateProduct } = useCukro();
-  useEffect(async () => {
-    await getProducts();
+  useEffect(() => {
+    const response = getProducts();
+    toast.promise(response, {
+      pending: 'Produkty sa načítavajú',
+      error: 'Produkty sa nepodarilo načítať'
+    });
   }, []);
 
   return (
@@ -44,6 +50,7 @@ const ProductList = () => {
             <Pagination color="primary" count={3} size="small" />
           </Box>
         </Container>
+        <ToastContainer />
       </Box>
     </>
   );

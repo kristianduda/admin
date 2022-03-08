@@ -31,8 +31,13 @@ export function CukroProvider({ children }) {
   });
 
   async function getProducts(filters, sort, page) {
-    const data = await cukroUtils.getProducts(filters, sort, page);
-    setProducts(data);
+    try {
+      const data = await cukroUtils.getProducts(filters, sort, page);
+      console.log('data: ', data);
+      setProducts(data);
+    } catch (error) {
+      throw new Error('Produkty sa nepodarilo načítať');
+    }
   }
 
   async function getProduct(id) {

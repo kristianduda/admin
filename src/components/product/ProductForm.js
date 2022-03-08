@@ -16,6 +16,8 @@ import {
 import { FieldArray, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useCukro } from 'src/contexts/cukro';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const validationSchema = Yup.object().shape({
   categoryId: Yup.string().min(2).required('Kategória je povinné pole'),
@@ -47,9 +49,17 @@ const ProductForm = ({ categoryList, productId }) => {
 
   const onSubmit = async (data, { setSubmitting, resetForm }) => {
     if (productId !== undefined) {
-      await editProduct(productId, data);
+      const edit = editProduct(productId, data);
+      toast.promise(edit, {
+        success: 'Produkt bol úspešne upravený 👌',
+        error: 'Produkt sa nepodarilo upraviť 🤯'
+      });
     } else {
-      await addProduct(data);
+      const add = addProduct(data);
+      toast.promise(add, {
+        success: 'Produkt bol úspešne pridaný 👌',
+        error: 'Produkt sa nepodarilo pridať 🤯'
+      });
       resetForm();
     }
 
@@ -60,12 +70,9 @@ const ProductForm = ({ categoryList, productId }) => {
     setValue(e.target.name, e.target.value);
   };
 
-  console.log('product: ', product);
-
   return (
     <Formik initialValues={product} validationSchema={validationSchema} onSubmit={onSubmit} enableReinitialize={true}>
       {({ values, handleSubmit, setFieldValue, isSubmitting, errors, touched }) => {
-        console.log('values: ', values);
         return (
           <form onSubmit={handleSubmit}>
             <Card>
@@ -251,6 +258,7 @@ const ProductForm = ({ categoryList, productId }) => {
               <Button variant="contained" type="submit" disabled={isSubmitting}>
                 Uložiť
               </Button>
+              <ToastContainer />
             </Box>
           </form>
         );

@@ -47,7 +47,7 @@ export const addProduct = (data) => {
     materials: data.materials,
     minimumAmount: data.minimumAmount
   };
-  ajax.post(url, req);
+  return ajax.post(url, req);
 };
 
 export const editProduct = async (id, data) => {

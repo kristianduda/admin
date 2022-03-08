@@ -114,44 +114,44 @@ const ProductCard = ({ item, deleteProduct, updateProduct }) => {
           }}
         >
           <ProductIcon productType={item.categoryRefs[0]?.id} disabled={item.disabled} />
-          <Typography color="textPrimary" gutterBottom variant="h4" mx={2} sx={disableColor()}>
+          <Typography color="textPrimary" gutterBottom variant="h4" mx={2} sx={() => disableColor()}>
             {item.name}
           </Typography>
         </Box>
 
-        <Typography pb={2} sx={disableColor()}>
+        <Typography pb={2} sx={() => disableColor()}>
           Kategória: {productCategoryName(item.categoryRefs[0].id)}
         </Typography>
         {item.variants !== null && item.variants.flavour.length > 0 && (
-          <Typography pb={1} sx={disableColor()}>
+          <Typography pb={1} sx={() => disableColor()}>
             Príchuť: {item.variants.flavour}
           </Typography>
         )}
         {item.variants !== null && item.variants.shape.length > 0 && (
-          <Typography pb={1} sx={disableColor()}>
+          <Typography pb={1} sx={() => disableColor()}>
             Tvar: {item.variants.shape}
           </Typography>
         )}
         {item.weight > 0 && (
-          <Typography pb={1} sx={disableColor()}>
+          <Typography pb={1} sx={() => disableColor()}>
             Hmotnosť: {item.weight} gramov
           </Typography>
         )}
         {item.deliveryDate > 0 && (
-          <Typography pb={1} sx={disableColor()}>
+          <Typography pb={1} sx={() => disableColor()}>
             Čas dodania: {item.deliveryDate} {item.deliveryDate === 1 ? 'deň' : 'dni'}
           </Typography>
         )}
         {item.minimumAmount > 0 && (
-          <Typography pb={1} sx={disableColor()}>
+          <Typography pb={1} sx={() => disableColor()}>
             Minimálny odber: {item.minimumAmount} ks
           </Typography>
         )}
-        <Typography pb={1} sx={disableColor()}>
+        <Typography pb={1} sx={() => disableColor()}>
           Cena: {item.price}€
         </Typography>
         {item.promote && (
-          <Typography pb={2} mt={2} color="primary" sx={disableColor()}>
+          <Typography pb={2} mt={2} color="primary" sx={() => disableColor()}>
             Produkt je na úvodnej stránke
           </Typography>
         )}
