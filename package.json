@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.0.27",
     "@date-io/moment": "^2.13.1",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
