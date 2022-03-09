@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import * as authUtils from '../utils/authUtils';
 import { storage } from 'kd-web';
 
@@ -12,6 +12,12 @@ export function AuthProvider({ children }) {
     total: 0
   });
 
+  useEffect(() => {
+    if(user) {
+      authUtils.initHub({});
+    }
+  }, []);
+
   async function getUsers(filters, sort, page, search) {
     const data = await authUtils.getUsers(filters, sort, page, search);
     setUsers(data);
@@ -21,6 +27,7 @@ export function AuthProvider({ children }) {
     try {
       const u = await authUtils.auth(username, password);
       if (u) {
+        authUtils.initHub({});
         setUser(u);
         return true;
       }
