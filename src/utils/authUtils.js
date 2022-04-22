@@ -1,4 +1,4 @@
-import { auth as a, storage, mail } from 'kd-web';
+import { auth as a, storage, mail } from 'extropy.js';
 import config from '../config.json';
 import * as signalR from '@aspnet/signalr';
 

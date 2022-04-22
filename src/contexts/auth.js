@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import * as authUtils from '../utils/authUtils';
-import { storage } from 'kd-web';
+import { storage } from 'extropy.js';
 
 const AuthContext = React.createContext();
 

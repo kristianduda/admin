@@ -1,4 +1,4 @@
-import { store } from 'kd-web';
+import { store } from 'extropy.js';
 
 export const getEnums = (filters, sort, page) =>
   store.get('enums', filters, sort, page);
