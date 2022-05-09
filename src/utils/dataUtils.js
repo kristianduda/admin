@@ -1,10 +1,12 @@
 import { store } from 'extropy.js';
 
+const collection = 'enums';
+
 export const getEnums = (filters, sort, page) =>
-  store.get('enums', filters, sort, page);
+  store.get(collection, filters, sort, page);
 
-export const addEnum = (data) => store.post('enums', data);
+export const addEnum = (data) => store.post(collection, data);
 
-export const editEnum = (data) => store.put('enums', data, data._id);
+export const editEnum = (data) => store.put(collection, data, data._id);
 
-export const deleteEnum = (id) => store.delById('enums', id);
+export const deleteEnum = (id) => store.delById(collection, id);
