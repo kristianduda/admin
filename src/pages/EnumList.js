@@ -27,7 +27,7 @@ const columns = [
     type: 'boolean',
     width: 110,
   },
-  { field: '_id', headerName: 'ID', width: 200 },
+  { field: '_id', headerName: 'ID', width: 200, disabled: true },
 ];
 
 const CustomerList = () => {

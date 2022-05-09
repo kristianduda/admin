@@ -48,7 +48,7 @@ const Form = ({
                     value={values[x.field]}
                     variant="outlined"
                     margin="normal"
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                   />
                 );
 
@@ -65,7 +65,7 @@ const Form = ({
                     value={values[x.field]}
                     variant="outlined"
                     margin="normal"
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                   />
                 );
               case 'dateTime':
@@ -81,7 +81,7 @@ const Form = ({
                     value={values[x.field]}
                     variant="outlined"
                     margin="normal"
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                   />
                 );
               case 'singleSelect':
@@ -97,7 +97,7 @@ const Form = ({
                     value={values[x.field]}
                     variant="outlined"
                     margin="normal"
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                     data={x.valueOptions}
                   />
                 );
@@ -109,7 +109,7 @@ const Form = ({
                     name={x.field}
                     setValue={setFieldValue}
                     label={x.headerName}
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                   />
                 );
               case 'string':
@@ -126,7 +126,7 @@ const Form = ({
                     setValue={setFieldValue}
                     value={values[x.field]}
                     variant="outlined"
-                    disabled={disabled}
+                    disabled={x.disabled || disabled}
                   />
                 );
             }
