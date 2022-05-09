@@ -5,6 +5,7 @@ function strToNumber(str) {
 }
 
 export function getFilter(field, operator, value) {
+  console.log(operator)
   switch (operator) {
     case '=':
       if (!value) {
@@ -114,12 +115,14 @@ export function getFilter(field, operator, value) {
           value: d.isValid() ? d.toDate() : value
         };
       }
-    case 'not':
+    case 'not': {
+      const d = moment(value, moment.ISO_8601, true);
       return {
         field,
         op: 'ne',
-        value: new Date(value)
+        value: d.isValid() ? d.toDate() : value
       };
+    }
     case 'after':
       return {
         field,
