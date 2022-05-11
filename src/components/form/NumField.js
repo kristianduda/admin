@@ -20,8 +20,8 @@ export default function NumField({
       label={label}
       name={name}
       onBlur={onBlur}
-      onChange={e => setValue(name, e.target.value)}
-      value={value}
+      onChange={e => setValue(name, Number(e.target.value))}
+      value={value ? value.toString() : ''}
       variant={variant}
       type="number"
       margin={margin}
