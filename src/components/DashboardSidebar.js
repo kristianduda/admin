@@ -21,7 +21,8 @@ import {
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
   Folder as FolderIcon,
-  PenTool as PenToolIcon
+  PenTool as PenToolIcon,
+  Calendar as CalendarIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -45,6 +46,11 @@ const items = [
     href: '/app/posts',
     icon: PenToolIcon,
     title: 'Posts'
+  },
+  {
+    href: '/app/calendar',
+    icon: CalendarIcon,
+    title: 'Calendar'
   },
   {
     href: '/app/products',

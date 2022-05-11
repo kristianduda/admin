@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Settings from './pages/Settings';
 import EnumList from './pages/EnumList';
 import PostList from './pages/PostList';
+import Calendar from './pages/Calendar';
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
       { path: 'account', element: <Account /> },
       { path: 'enums', element: <EnumList /> },
       { path: 'posts', element: <PostList /> },
+      { path: 'calendar', element: <Calendar /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
