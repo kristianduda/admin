@@ -9,6 +9,7 @@ import SelectField from '../form/SelectField';
 import SwitchField from '../form/SwitchField';
 import NumField from '../form/NumField';
 import TextField from '../form/TextField';
+import Editor from '../form/Editor';
 
 const Form = ({
   columns,
@@ -112,6 +113,15 @@ const Form = ({
                     disabled={x.disabled || disabled}
                   />
                 );
+              case 'text':
+                return (
+                  <Editor 
+                    key={x.field}
+                    name={x.field}
+                    setValue={setFieldValue}
+                    value={values[x.field]}
+                  />
+                )
               case 'string':
               default:
                 return (

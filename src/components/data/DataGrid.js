@@ -67,9 +67,19 @@ export default function DataGridDemo({
         const v = c.valueOptions.find((x) => x.value === params.value);
         return v ? v.label : '';
       };
-    }
 
-    return c;
+      return {
+        ...c,
+        valueFormatter: (params) => {
+          const v = c.valueOptions.find((x) => x.value === params.value);
+          return v ? v.label : '';
+        }
+      };
+    } else if (c.type === 'text') {
+      return { ...c, type: 'string' };
+    } else {
+      return c;
+    }
   });
   columnsWithActions.push({
     field: 'actions',
