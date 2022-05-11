@@ -21,3 +21,14 @@ export const addPost = (data) => store.post(posts, data);
 export const editPost = (data) => store.put(posts, data, data._id);
 
 export const deletePost = (id) => store.delById(posts, id);
+
+const events = 'events';
+
+export const getEvents = (filters, sort, page) =>
+  store.get(events, filters, sort, page);
+
+export const addEvent = (data) => store.post(events, data);
+
+export const editEvent = (data) => store.put(events, data, data._id);
+
+export const deleteEvent = (id) => store.delById(events, id);

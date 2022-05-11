@@ -48,6 +48,11 @@ const items = [
     title: 'Posts'
   },
   {
+    href: '/app/events',
+    icon: CalendarIcon,
+    title: 'Events'
+  },
+  {
     href: '/app/calendar',
     icon: CalendarIcon,
     title: 'Calendar'

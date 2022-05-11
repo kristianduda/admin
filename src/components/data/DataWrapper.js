@@ -16,16 +16,17 @@ const DataWrapper = ({
   onEdit,
   onDelete,
   validationSchema,
-  disabled,
-  searchbar
+  isDisabled,
+  searchbar,
+  initialData
 }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
-  const [rowData, setRowData] = useState({});
+  const [rowData, setRowData] = useState(initialData || {});
 
   const onAddClick = () => {
     setIsOpenEdit(true);
-    setRowData({});
+    setRowData(initialData || {});
   };
 
   const onCloseEdit = () => {
@@ -87,7 +88,7 @@ const DataWrapper = ({
       <Container maxWidth={false}>
         <DataToolbar
           onAdd={onAddClick}
-          disabled={disabled}
+          disabled={isDisabled && isDisabled(null)}
           onChange={onChangeSearch}
           searchbar={searchbar}
         />
@@ -99,7 +100,7 @@ const DataWrapper = ({
             total={total}
             onEdit={onEditClick}
             onDelete={onDeleteClick}
-            disabled={disabled}
+            isDisabled={isDisabled}
           />
         </Box>
       </Container>
@@ -109,7 +110,7 @@ const DataWrapper = ({
           initialData={rowData}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
-          disabled={disabled}
+          disabled={isDisabled && isDisabled(rowData)}
           onCancel={onCloseEdit}
         />
       </DataDetail>

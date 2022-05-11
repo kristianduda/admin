@@ -11,7 +11,7 @@ export default function DataGridDemo({
   total,
   onEdit,
   onDelete,
-  disabled
+  isDisabled
 }) {
   const [pageModel, setPageModel] = React.useState(0);
   const [pageSizeModel, setPageSizeModel] = React.useState(5);
@@ -62,23 +62,24 @@ export default function DataGridDemo({
   }, []);
 
   const columnsWithActions = columns.map((c) => {
-    if (c.type === 'singleSelect') {
-      c.valueFormatter = (params) => {
-        const v = c.valueOptions.find((x) => x.value === params.value);
-        return v ? v.label : '';
-      };
-
-      return {
-        ...c,
-        valueFormatter: (params) => {
-          const v = c.valueOptions.find((x) => x.value === params.value);
-          return v ? v.label : '';
+    switch (c.type) {
+      case 'singleSelect':
+        return {
+          ...c,
+          valueGetter: ({value}) => {
+            const v = c.valueOptions.find((x) => x.value === value);
+            return v ? v.label : '';
+          }
+        };
+      case 'dateTime':
+        return {
+          ...c,
+          valueGetter: ({ value }) => value && new Date(value)
         }
-      };
-    } else if (c.type === 'text') {
-      return { ...c, type: 'string' };
-    } else {
-      return c;
+      case 'text':
+        return { ...c, type: 'string' };
+      default:
+        return c;
     }
   });
   columnsWithActions.push({
@@ -93,7 +94,7 @@ export default function DataGridDemo({
       <GridActionsCellItem
         label="Delete"
         icon={<DeleteIcon />}
-        disabled={disabled}
+        disabled={isDisabled && isDisabled(params.row)}
         onClick={(e) => onDelete(params.row)}
       />
     ]
@@ -120,7 +121,7 @@ export default function DataGridDemo({
         filterModel={filterModel}
         onFilterModelChange={onFilterModelChange}
         components={{
-          Toolbar: GridToolbar,
+          Toolbar: GridToolbar
         }}
       />
     </div>

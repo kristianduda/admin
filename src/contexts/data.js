@@ -12,6 +12,10 @@ export function DataProvider({ children }) {
     data: [],
     total: 0
   });
+  const [events, setEvents] = useState({
+    data: [],
+    total: 0
+  });
 
   async function getEnums(filters, sort, page) {
     const data = await dataUtils.getEnums(filters, sort, page);
@@ -21,6 +25,11 @@ export function DataProvider({ children }) {
   async function getPosts(filters, sort, page) {
     const data = await dataUtils.getPosts(filters, sort, page);
     setPosts(data);
+  }
+
+  async function getEvents(filters, sort, page) {
+    const data = await dataUtils.getEvents(filters, sort, page);
+    setEvents(data);
   }
 
   return (
@@ -35,7 +44,12 @@ export function DataProvider({ children }) {
         getPosts,
         addPost: dataUtils.addPost,
         editPost: dataUtils.editPost,
-        deletePost: dataUtils.deletePost
+        deletePost: dataUtils.deletePost,
+        events,
+        getEvents,
+        addEvent: dataUtils.addEvent,
+        editEvent: dataUtils.editEvent,
+        deleteEvent: dataUtils.deleteEvent
       }}
     >
       {children}

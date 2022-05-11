@@ -29,7 +29,7 @@ const CustomerList = () => {
         data={users.data}
         total={users.total}
         onGet={getUsers}
-        disabled
+        isDisabled={() => true}
       />
     </>
   );
