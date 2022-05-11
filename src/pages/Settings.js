@@ -10,7 +10,7 @@ const SettingsView = () => {
   return (
     <>
       <Helmet>
-        <title>Settings | KD</title>
+        <title>Settings | EXTROPY</title>
       </Helmet>
       <Box
         sx={{

@@ -44,7 +44,7 @@ const CustomerList = () => {
   return (
     <>
       <Helmet>
-        <title>Posts | KD</title>
+        <title>Posts | EXTROPY</title>
       </Helmet>
       <DataWrapper
         columns={columns}

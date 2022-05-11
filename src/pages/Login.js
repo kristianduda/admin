@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | KD</title>
+        <title>Login | EXTROPY</title>
       </Helmet>
       <Box
         sx={{

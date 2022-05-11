@@ -49,7 +49,7 @@ const CustomerList = () => {
   return (
     <>
       <Helmet>
-        <title>Enums | KD</title>
+        <title>Enums | EXTROPY</title>
       </Helmet>
       <DataWrapper 
         columns={columns}

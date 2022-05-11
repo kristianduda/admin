@@ -21,7 +21,7 @@ const CustomerList = () => {
   return (
     <>
       <Helmet>
-        <title>Customers | KD</title>
+        <title>Customers | EXTROPY</title>
       </Helmet>
       <DataWrapper 
         searchbar
