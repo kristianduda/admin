@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 import { getFilter } from '../../utils/filters';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -119,6 +119,9 @@ export default function DataGridDemo({
         filterMode="server"
         filterModel={filterModel}
         onFilterModelChange={onFilterModelChange}
+        components={{
+          Toolbar: GridToolbar,
+        }}
       />
     </div>
   );
