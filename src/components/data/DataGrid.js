@@ -18,7 +18,7 @@ export default function DataGridDemo({
   const [loading, setLoading] = React.useState(false);
 
   const [sortModel, setSortModel] = React.useState([
-    { field: 'id', sort: 'asc' }
+    { field: '_id', sort: 'asc' }
   ]);
   const [filterModel, setFilterModel] = React.useState({
     items: [],

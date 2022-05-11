@@ -22,11 +22,11 @@ const DataWrapper = ({
 }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
-  const [rowData, setRowData] = useState(initialData || {});
+  const [rowData, setRowData] = useState({...initialData});
 
   const onAddClick = () => {
     setIsOpenEdit(true);
-    setRowData(initialData || {});
+    setRowData({...initialData});
   };
 
   const onCloseEdit = () => {

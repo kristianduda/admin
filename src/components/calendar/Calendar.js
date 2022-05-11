@@ -8,41 +8,12 @@ import { useTheme } from '@mui/styles';
 
 import './Calendar.css';
 
-const handleDateSelect = (selectInfo) => {
-  let title = prompt('Please enter a new title for your event');
-  let calendarApi = selectInfo.view.calendar;
+const handleEvents = (events) => {};
 
-  calendarApi.unselect(); // clear date selection
-
-  if (title) {
-    calendarApi.addEvent({
-      id: createEventId(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay
-    });
-  }
+const handleEventDataTransform = (event) => {
+  event.id = event._id;
+  return event;
 };
-
-const handleEvents = (events) => {
-};
-
-const handleEventClick = (clickInfo) => {
-  if (
-    confirm(
-      `Are you sure you want to delete the event '${clickInfo.event.title}'`
-    )
-  ) {
-    clickInfo.event.remove();
-  }
-};
-
-const handleDatesSet = (args) => {
-};
-
-const handleEventDataTransform = (args) => {
-}
 
 function renderEventContent(eventInfo) {
   return (
@@ -53,15 +24,68 @@ function renderEventContent(eventInfo) {
   );
 }
 
-export default function Calendar() {
+export default function Calendar({ onChange, data, onSelect, isDisabled }) {
   const theme = useTheme();
+
+  const handleDatesSet = (args) => {
+    const filters = [
+      { field: 'start', op: 'gte', value: args.start },
+      { field: 'end', op: 'lte', value: args.end }
+    ];
+    onChange(filters);
+  };
+
+  const handleDateSelect = (selectInfo) => {
+    if (isDisabled && isDisabled(null)) {
+      const calendarApi = selectInfo.view.calendar;
+      calendarApi.unselect(); 
+      return;
+    }
+
+    const event = {
+      start: new Date(selectInfo.startStr),
+      end: new Date(selectInfo.endStr)
+    };
+    onSelect(event);
+
+    // let title = prompt('Please enter a new title for your event');
+    // let calendarApi = selectInfo.view.calendar;
+
+    // calendarApi.unselect(); // clear date selection
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   });
+    // }
+  };
+
+  const handleEventClick = (clickInfo) => {
+    // if (
+    //   confirm(
+    //     `Are you sure you want to delete the event '${clickInfo.event.title}'`
+    //   )
+    // ) {
+    //   clickInfo.event.remove();
+    // }
+    const event = data.find((x) => x._id === clickInfo.event.id);
+    if (isDisabled && isDisabled(event)) {
+      return;
+    }
+
+    onSelect(event);
+  };
 
   return (
     <div className="Calendar">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: 'prev,next today',
+          left: 'prev,next,today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         }}
@@ -71,7 +95,8 @@ export default function Calendar() {
         selectMirror={true}
         dayMaxEvents={true}
         weekends={true}
-        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+        events={data}
+        slotDuration="1:00:00"
         select={handleDateSelect}
         eventContent={renderEventContent} // custom render function
         eventClick={handleEventClick}

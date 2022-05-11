@@ -18,6 +18,12 @@ const getColumns = (types) => [
     width: 200
   },
   {
+    field: 'end',
+    headerName: 'End',
+    type: 'dateTime',
+    width: 200
+  },
+  {
     field: 'type',
     headerName: 'Type',
     type: 'singleSelect',
@@ -37,9 +43,6 @@ const getColumns = (types) => [
 //   },
   { field: '_id', headerName: 'ID', width: 200, disabled: true }
 ];
-
-const today = new Date();
-today.setHours(18, 0, 0, 0);
 
 const CustomerList = () => {
   const { enums, getEnums, events, getEvents, addEvent, editEvent, deleteEvent } =
@@ -62,7 +65,8 @@ const CustomerList = () => {
   const columns = getColumns(enums.data);
   const initialData = {
     userId: user._id,
-    start: today
+    start: (new Date).setHours(18, 0, 0, 0),
+    end: (new Date).setHours(19, 0, 0, 0)
   };
   return (
     <>
