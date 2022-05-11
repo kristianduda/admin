@@ -46,7 +46,7 @@ const DataToolbar = ({ onAdd, disabled, onChange, searchbar }) => {
         )}
       </Box>
       {searchbar && (
-        <Box sx={{ mt: 3 }}>
+        <Box>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
