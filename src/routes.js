@@ -10,6 +10,7 @@ import ProductList from './pages/ProductList';
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import EnumList from './pages/EnumList';
+import PostList from './pages/PostList';
 
 const routes = [
   {
@@ -18,6 +19,7 @@ const routes = [
     children: [
       { path: 'account', element: <Account /> },
       { path: 'enums', element: <EnumList /> },
+      { path: 'posts', element: <PostList /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },

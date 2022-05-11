@@ -20,7 +20,8 @@ import {
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
-  File as FolderIcon
+  Folder as FolderIcon,
+  PenTool as PenToolIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -39,6 +40,11 @@ const items = [
     href: '/app/enums',
     icon: FolderIcon,
     title: 'Enums'
+  },
+  {
+    href: '/app/posts',
+    icon: PenToolIcon,
+    title: 'Posts'
   },
   {
     href: '/app/products',

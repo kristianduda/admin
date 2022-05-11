@@ -18,7 +18,8 @@ const columns = [
   {
     field: 'label',
     headerName: 'Label',
-    width: 200,
+    flex: 1,
+    minWidth: 200
   },
   {
     field: 'type',
