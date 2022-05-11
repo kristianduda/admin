@@ -16,7 +16,8 @@ const DataWrapper = ({
   onEdit,
   onDelete,
   validationSchema,
-  disabled
+  disabled,
+  searchbar
 }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -44,14 +45,14 @@ const DataWrapper = ({
   const onChangeSearch = async (s) => {
     _search = s;
     await onGet(_filter, _sort, _page, s);
-  }
+  };
 
   const onChangeGrid = async (f, s, p) => {
     _filter = f;
     _sort = s;
     _page = p;
-    await onGet(f, s, p, _search)
-  }
+    await onGet(f, s, p, _search);
+  };
 
   const onCloseDelete = () => {
     setIsOpenDelete(false);
@@ -84,7 +85,12 @@ const DataWrapper = ({
       }}
     >
       <Container maxWidth={false}>
-        <DataToolbar onAdd={onAddClick} disabled={disabled} onChange={onChangeSearch} />
+        <DataToolbar
+          onAdd={onAddClick}
+          disabled={disabled}
+          onChange={onChangeSearch}
+          searchbar={searchbar}
+        />
         <Box sx={{ pt: 3 }}>
           <DataGrid
             onChange={onChangeGrid}
@@ -107,7 +113,7 @@ const DataWrapper = ({
           onCancel={onCloseEdit}
         />
       </DataDetail>
-      <ConfirmDialog 
+      <ConfirmDialog
         isOpen={isOpenDelete}
         onClose={onCloseDelete}
         onConfirm={onConfirmDelete}

@@ -11,7 +11,7 @@ import {
 import { Search as SearchIcon } from 'react-feather';
 
 let _timeout;
-const DataToolbar = ({ onAdd, disabled, onChange }) => {
+const DataToolbar = ({ onAdd, disabled, onChange, searchbar }) => {
   const [search, setSearch] = useState('');
 
   const handleChange = (e) => {
@@ -27,43 +27,52 @@ const DataToolbar = ({ onAdd, disabled, onChange }) => {
 
   return (
     <Box>
-      <Box sx={{ mt: 3 }}>
-        <Card>
-          <CardContent>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Box sx={{ maxWidth: 500, flex: 1 }}>
-                <TextField
-                  fullWidth
-                  value={search}
-                  onChange={handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SvgIcon fontSize="small" color="action">
-                          <SearchIcon />
-                        </SvgIcon>
-                      </InputAdornment>
-                    )
-                  }}
-                  placeholder="Search"
-                  variant="outlined"
-                />
-              </Box>
-              {!disabled && (
-                <Box
-                  sx={{
-                    display: 'flex'
-                  }}
-                >
-                  <Button color="primary" variant="contained" onClick={onAdd}>
-                    Add
-                  </Button>
-                </Box>
-              )}
-            </Box>
-          </CardContent>
-        </Card>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end'
+        }}
+      >
+        {!disabled && (
+          <Box
+            sx={{
+              display: 'flex'
+            }}
+          >
+            <Button color="primary" variant="contained" onClick={onAdd}>
+              Add
+            </Button>
+          </Box>
+        )}
       </Box>
+      {searchbar && (
+        <Box sx={{ mt: 3 }}>
+          <Card>
+            <CardContent>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ maxWidth: 500, flex: 1 }}>
+                  <TextField
+                    fullWidth
+                    value={search}
+                    onChange={handleChange}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SvgIcon fontSize="small" color="action">
+                            <SearchIcon />
+                          </SvgIcon>
+                        </InputAdornment>
+                      )
+                    }}
+                    placeholder="Search"
+                    variant="outlined"
+                  />
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+      )}
     </Box>
   );
 };

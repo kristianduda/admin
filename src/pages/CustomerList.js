@@ -24,6 +24,7 @@ const CustomerList = () => {
         <title>Customers | KD</title>
       </Helmet>
       <DataWrapper 
+        searchbar
         columns={columns}
         data={users.data}
         total={users.total}
