@@ -16,6 +16,7 @@ export default function DateTimeField({
       key={name}
       label={label}
       value={value}
+      ampm={false}
       onChange={v => setValue(name, v)}
       disabled={disabled}
       renderInput={(params) => (
