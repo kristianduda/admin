@@ -5,7 +5,6 @@ function strToNumber(str) {
 }
 
 export function getFilter(field, operator, value) {
-  console.log(operator)
   switch (operator) {
     case '=':
       if (!value) {
