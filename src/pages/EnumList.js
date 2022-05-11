@@ -3,18 +3,30 @@ import { Helmet } from 'react-helmet';
 import DataWrapper from '../components/data/DataWrapper';
 import { useData } from 'src/contexts/data';
 
+const types = [
+  {
+    label: 'blog',
+    value: 1
+  },
+  {
+    label: 'event',
+    value: 2
+  }
+]
+
 const columns = [
   {
     field: 'label',
-    headerName: 'Label'
+    headerName: 'Label',
+    width: 200,
   },
-  // {
-  //   field: 'parentId',
-  //   headerName: 'Parent',
-  //   type: 'singleSelect',
-  //   valueOptions: rootEnums.data,
-  //   sortable: false
-  // },
+  {
+    field: 'type',
+    headerName: 'Type',
+    type: 'singleSelect',
+    valueOptions: types,
+    sortable: false
+  },
   {
     field: 'value',
     headerName: 'Value',
