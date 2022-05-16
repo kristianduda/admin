@@ -22,7 +22,7 @@ const Login = () => {
   const onSubmit = async (data, { resetForm }) => {
     const isAuth = await auth(data.email, data.password);
     if(isAuth) {
-      navigate('/app/dashboard', { replace: true });
+      navigate('/', { replace: true });
     }
     else {
       resetForm({
@@ -52,7 +52,7 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'doby@krdeldatlov.sk',
+              email: '',
               password: ''
             }}
             validationSchema={Yup.object().shape({
@@ -174,7 +174,7 @@ const Login = () => {
                     Sign in now
                   </Button>
                 </Box>
-                <Typography
+                {/* <Typography
                   color="textSecondary"
                   variant="body1"
                 >
@@ -183,7 +183,7 @@ const Login = () => {
                   <Link component={RouterLink} to="/register" variant="h6" underline="hover">
                     Sign up
                   </Link>
-                </Typography>
+                </Typography> */}
               </form>
             )}
           </Formik>

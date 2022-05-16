@@ -1,34 +1,24 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Badge,
-  Box,
-  Hidden,
-  IconButton,
-  Toolbar
-} from '@mui/material';
+import { AppBar, Badge, Box, Hidden, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
-import InputIcon from '@mui/icons-material/Input';
+import PersonIcon from '@mui/icons-material/PersonOutline';
 import Logo from './Logo';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
   return (
-    <AppBar
-      elevation={0}
-      {...rest}
-    >
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
           <Logo />
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden xlDown>
-          <IconButton color="inherit" size="large">
+          {/* <IconButton color="inherit" size="large">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -36,9 +26,14 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             >
               <NotificationsIcon />
             </Badge>
-          </IconButton>
-          <IconButton color="inherit" size="large">
-            <InputIcon />
+          </IconButton> */}
+          <IconButton
+            color="inherit"
+            size="large"
+            component={RouterLink}
+            to="/app/account"
+          >
+            <PersonIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>

@@ -27,21 +27,11 @@ import {
 import NavItem from './NavItem';
 
 const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/enums',
-    icon: FolderIcon,
-    title: 'Enums'
-  },
+  // {
+  //   href: '/app/dashboard',
+  //   icon: BarChartIcon,
+  //   title: 'Dashboard'
+  // },
   {
     href: '/app/posts',
     icon: PenToolIcon,
@@ -57,10 +47,20 @@ const items = [
     icon: CalendarIcon,
     title: 'Calendar'
   },
+  // {
+  //   href: '/app/products',
+  //   icon: ShoppingBagIcon,
+  //   title: 'Products'
+  // },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
+    href: '/app/enums',
+    icon: FolderIcon,
+    title: 'Enums'
+  },
+  {
+    href: '/app/customers',
+    icon: UsersIcon,
+    title: 'Customers'
   },
   {
     href: '/app/account',
@@ -151,7 +151,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, user }) => {
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <Box
+      {/* <Box
         sx={{
           backgroundColor: 'background.default',
           m: 2,
@@ -187,7 +187,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, user }) => {
             See PRO version
           </Button>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 
