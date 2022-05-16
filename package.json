@@ -1,8 +1,9 @@
 {
-  "name": "react-material-dashboard",
-  "author": "DeviasIO",
+  "name": "admin",
+  "author": "EXTROPY",
   "licence": "MIT",
-  "version": "1.0.0",
+  "homepage": ".",
+  "version": "0.1.0",
   "private": false,
   "scripts": {
     "eslint": "eslint ./src",
