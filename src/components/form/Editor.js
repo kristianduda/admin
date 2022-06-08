@@ -66,7 +66,7 @@ export default function Editor({
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
         generateMarkdownPreview={(content) =>
-          Promise.resolve(<Markdown>{content}</Markdown>)
+          Promise.resolve(<Markdown>{content || ""}</Markdown>)
         }
         loadSuggestions={loadSuggestions}
         childProps={{
