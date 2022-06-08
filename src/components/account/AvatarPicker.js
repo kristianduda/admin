@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Avatar } from '@mui/material';
-import withCanvas from './withCanvas';
+import withCanvas from '../../utils/withCanvas';
 
 function AvatarPicker({ src, disabled, onChange, canvas }) {
   const inputRef = useRef(null);
