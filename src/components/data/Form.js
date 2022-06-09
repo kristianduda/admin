@@ -122,6 +122,7 @@ const Form = ({
                       name={x.field}
                       setValue={setFieldValue}
                       value={values[x.field]}
+                      addFile={addFile}
                     />
                   );
                 case 'file':

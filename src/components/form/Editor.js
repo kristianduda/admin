@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactMde from 'react-mde';
 import Markdown from './Markdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
+import withCanvas from 'src/utils/withCanvas';
 
 function loadSuggestions(text) {
   return new Promise((accept, reject) => {
@@ -29,33 +30,29 @@ function loadSuggestions(text) {
   });
 }
 
-export default function Editor({
+function Editor({
     name,
     value,
-    setValue
+    setValue,
+    addFile,
+    canvas
 }) {
   const [selectedTab, setSelectedTab] = React.useState('write');
 
-  const save = async function* (data) {
-    // Promise that waits for "time" milliseconds
-    const wait = function (time) {
-      return new Promise((a, r) => {
-        setTimeout(() => a(), time);
-      });
-    };
+  const saveImage = async function* (data) {
+    var blob = new Blob([data], { type: "image/jpeg" });
+    var urlCreator = window.URL || window.webkitURL;
+    var src = urlCreator.createObjectURL(blob);
+    const d = await canvas.resize(src, 320, "img.jpg");
 
-    // Upload "data" to your server
-    // Use XMLHttpRequest.send to send a FormData object containing
-    // "data"
-    // Check this question: https://stackoverflow.com/questions/18055422/how-to-receive-php-image-data-over-copy-n-paste-javascript-with-xmlhttprequest
+    try {
+      const file = await addFile(d);
 
-    await wait(2000);
-    // yields the URL that should be inserted in the markdown
-    yield 'https://picsum.photos/300';
-    await wait(2000);
-
-    // returns true meaning that the save was successful
-    return true;
+      yield `{URL}/api/file/${file._id}`;
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 
   return (
@@ -74,10 +71,12 @@ export default function Editor({
             tabIndex: -1
           }
         }}
-        // paste={{
-        //   saveImage: save
-        // }}
+        paste={{
+          saveImage
+        }}
       />
     </div>
   );
 }
+
+export default withCanvas(Editor);

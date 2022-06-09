@@ -7,8 +7,7 @@ const getColumns = (types) => [
   {
     field: 'images',
     headerName: 'Images',
-    type: 'file',
-    hide: true
+    type: 'file'
   },
   {
     field: 'title',
@@ -26,6 +25,7 @@ const getColumns = (types) => [
   {
     field: 'content',
     headerName: 'Content',
+    type: 'text',
     hide: true
   },
   {
