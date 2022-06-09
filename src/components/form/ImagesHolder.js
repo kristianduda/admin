@@ -89,10 +89,11 @@ function ImagesHolder(props) {
   const init = async () => {
     const images = await Promise.all(
       props.value.map(async (i) => {
-        const blob = await props.getFile(i);
+        const src = await props.getFile(i);
         return {
           id: i,
-          src: await blobToBase64(blob)
+          src,
+          filePath: await blobToBase64(src)
         };
       })
     );
@@ -206,7 +207,7 @@ function ImagesHolder(props) {
         >
           <img
             className={classNames(classes.imageFit)}
-            src={i.src && !i.filePath ? i.src : i.filePath}
+            src={i.filePath}
             alt="img"
           />
 
