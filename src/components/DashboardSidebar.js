@@ -4,90 +4,14 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
   List,
   Typography
 } from '@mui/material';
-import {
-  AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon,
-  Folder as FolderIcon,
-  PenTool as PenToolIcon,
-  Calendar as CalendarIcon
-} from 'react-feather';
 import NavItem from './NavItem';
-
-const items = [
-  // {
-  //   href: '/app/dashboard',
-  //   icon: BarChartIcon,
-  //   title: 'Dashboard'
-  // },
-  {
-    href: '/app/posts',
-    icon: PenToolIcon,
-    title: 'Posts'
-  },
-  {
-    href: '/app/events',
-    icon: CalendarIcon,
-    title: 'Events'
-  },
-  {
-    href: '/app/calendar',
-    icon: CalendarIcon,
-    title: 'Calendar'
-  },
-  // {
-  //   href: '/app/products',
-  //   icon: ShoppingBagIcon,
-  //   title: 'Products'
-  // },
-  {
-    href: '/app/enums',
-    icon: FolderIcon,
-    title: 'Enums'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  // {
-  //   href: '/login',
-  //   icon: LockIcon,
-  //   title: 'Login'
-  // },
-  // {
-  //   href: '/register',
-  //   icon: UserPlusIcon,
-  //   title: 'Register'
-  // },
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Error'
-  // }
-];
+import routes from '../routes';
 
 const DashboardSidebar = ({ onMobileClose, openMobile, user }) => {
   const location = useLocation();
@@ -140,9 +64,9 @@ const DashboardSidebar = ({ onMobileClose, openMobile, user }) => {
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          {items.map((item) => (
+          {routes.find(r => r.path === 'app').children.filter(x => !x.permission || (user.permissions & x.permission) > 0).map((item) => (
             <NavItem
-              href={item.href}
+              href={`/app/${item.path}`}
               key={item.title}
               title={item.title}
               icon={item.icon}

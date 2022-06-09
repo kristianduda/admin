@@ -1,4 +1,17 @@
 import { Navigate } from 'react-router-dom';
+import {
+  AlertCircle as AlertCircleIcon,
+  BarChart as BarChartIcon,
+  Lock as LockIcon,
+  Settings as SettingsIcon,
+  ShoppingBag as ShoppingBagIcon,
+  User as UserIcon,
+  UserPlus as UserPlusIcon,
+  Users as UsersIcon,
+  Folder as FolderIcon,
+  PenTool as PenToolIcon,
+  Calendar as CalendarIcon
+} from 'react-feather';
 import DashboardLayout from './components/DashboardLayout';
 import MainLayout from './components/MainLayout';
 import Account from './pages/Account';
@@ -19,16 +32,62 @@ const routes = [
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <Account /> },
-      { path: 'enums', element: <EnumList /> },
-      { path: 'posts', element: <PostList /> },
-      { path: 'events', element: <EventList /> },
-      { path: 'calendar', element: <Calendar /> },
-      { path: 'customers', element: <CustomerList /> },
-      { path: 'dashboard', element: <Dashboard /> },
-      { path: 'products', element: <ProductList /> },
-      { path: 'settings', element: <Settings /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      {
+        path: 'posts',
+        element: <PostList />,
+        icon: PenToolIcon,
+        title: 'Posts'
+      },
+      {
+        path: 'events',
+        element: <EventList />,
+        icon: CalendarIcon,
+        title: 'Events',
+        permission: 32
+      },
+      {
+        path: 'calendar',
+        element: <Calendar />,
+        icon: CalendarIcon,
+        title: 'Calendar',
+        permission: 32
+      },
+      {
+        path: 'enums',
+        element: <EnumList />,
+        icon: FolderIcon,
+        title: 'Enums'
+      },
+      {
+        path: 'customers',
+        element: <CustomerList />,
+        icon: UsersIcon,
+        title: 'Customers'
+      },
+      {
+        path: 'account',
+        element: <Account />,
+        icon: UserIcon,
+        title: 'Account'
+      },
+      {
+        path: 'settings',
+        element: <Settings />,
+        icon: SettingsIcon,
+        title: 'Settings'
+      },
+      // {
+      //   path: 'dashboard',
+      //   element: <Dashboard />,
+      //   icon: BarChartIcon,
+      //   title: 'Dashboard'
+      // },
+      // {
+      //   path: 'products',
+      //   element: <ProductList />,
+      //   icon: ShoppingBagIcon,
+      //   title: 'Products'
+      // },
     ]
   },
   {
