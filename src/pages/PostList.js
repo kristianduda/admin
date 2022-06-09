@@ -46,6 +46,15 @@ const CustomerList = () => {
     getEnums(filters);
   }, []);
 
+  const onDelete = async (id) => {
+    await deletePost(id);
+
+    const d = posts.data.find(p => p._id === id);
+    if(d.images) {
+      d.images.map(async i => await deleteFile(i));
+    }
+  }
+
   const columns = getColumns(enums.data);
   return (
     <>
@@ -59,7 +68,7 @@ const CustomerList = () => {
         onGet={getPosts}
         onAdd={addPost}
         onEdit={editPost}
-        onDelete={deletePost}
+        onDelete={onDelete}
         addFile={addFile}
         deleteFile={deleteFile}
         getFile={getFile}
