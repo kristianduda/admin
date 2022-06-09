@@ -61,25 +61,29 @@ export default function DataGridDemo({
     handleChange(pageModel, pageSizeModel, filterModel, sortModel);
   }, []);
 
-  const columnsWithActions = columns.map((c) => {
+  const columnsWithActions = [];
+  columns.forEach((c) => {
     switch (c.type) {
       case 'singleSelect':
-        return {
+        columnsWithActions.push({
           ...c,
-          valueGetter: ({value}) => {
+          valueGetter: ({ value }) => {
             const v = c.valueOptions.find((x) => x.value === value);
             return v ? v.label : '';
           }
-        };
+        });
+        break;
       case 'dateTime':
-        return {
+        columnsWithActions.push({
           ...c,
           valueGetter: ({ value }) => value && new Date(value)
-        }
+        });
+        break;
       case 'text':
-        return { ...c, type: 'string' };
+      case 'file':
+        break;
       default:
-        return c;
+        columnsWithActions.push(c);
     }
   });
   columnsWithActions.push({

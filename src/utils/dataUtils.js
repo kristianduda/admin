@@ -32,3 +32,9 @@ export const addEvent = (data) => store.post(events, data);
 export const editEvent = (data) => store.put(events, data, data._id);
 
 export const deleteEvent = (id) => store.delById(events, id);
+
+export const addFile = async (file) => store.postFile(file);
+
+export const getFile = async (id) => store.getFile(id);
+
+export const deleteFile = async (id) => store.delFile(id);

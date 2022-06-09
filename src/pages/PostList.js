@@ -5,6 +5,12 @@ import { useData } from 'src/contexts/data';
 
 const getColumns = (types) => [
   {
+    field: 'images',
+    headerName: 'Images',
+    type: 'file',
+    hide: true
+  },
+  {
     field: 'title',
     headerName: 'Title',
     flex: 1,
@@ -32,7 +38,7 @@ const getColumns = (types) => [
 ];
 
 const CustomerList = () => {
-  const { enums, getEnums, posts, getPosts, addPost, editPost, deletePost } =
+  const { enums, getEnums, posts, getPosts, addPost, editPost, deletePost, addFile, deleteFile, getFile } =
     useData();
 
   useEffect(() => {
@@ -54,6 +60,9 @@ const CustomerList = () => {
         onAdd={addPost}
         onEdit={editPost}
         onDelete={deletePost}
+        addFile={addFile}
+        deleteFile={deleteFile}
+        getFile={getFile}
       />
     </>
   );

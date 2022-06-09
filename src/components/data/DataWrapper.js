@@ -18,7 +18,10 @@ const DataWrapper = ({
   validationSchema,
   isDisabled,
   searchbar,
-  initialData
+  initialData,
+  getFile,
+  addFile,
+  deleteFile
 }) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -112,6 +115,9 @@ const DataWrapper = ({
           validationSchema={validationSchema}
           disabled={isDisabled && isDisabled(rowData)}
           onCancel={onCloseEdit}
+          addFile={addFile}
+          deleteFile={deleteFile}
+          getFile={getFile}
         />
       </DataDetail>
       <ConfirmDialog

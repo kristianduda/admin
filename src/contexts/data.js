@@ -49,7 +49,10 @@ export function DataProvider({ children }) {
         getEvents,
         addEvent: dataUtils.addEvent,
         editEvent: dataUtils.editEvent,
-        deleteEvent: dataUtils.deleteEvent
+        deleteEvent: dataUtils.deleteEvent,
+        addFile: dataUtils.addFile,
+        getFile: dataUtils.getFile,
+        deleteFile: dataUtils.deleteFile
       }}
     >
       {children}
