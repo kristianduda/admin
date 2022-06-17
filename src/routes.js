@@ -43,14 +43,14 @@ const routes = [
         element: <EventList />,
         icon: CalendarIcon,
         title: 'Events',
-        permission: 32
+        permission: 4096
       },
       {
         path: 'calendar',
         element: <Calendar />,
         icon: CalendarIcon,
         title: 'Calendar',
-        permission: 32
+        permission: 4096
       },
       {
         path: 'enums',
