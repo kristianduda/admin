@@ -2,7 +2,6 @@
   "name": "admin",
   "author": "EXTROPY",
   "licence": "MIT",
-  "homepage": ".",
   "version": "0.1.0",
   "private": false,
   "scripts": {
